@@ -33,6 +33,7 @@ class yufinder_Activator {
 
         global $wpdb;
 
+        // Prepare all table names
         $table_instance = $wpdb->prefix . 'yufinder_instance';
         $table_filter = $wpdb->prefix . 'yufinder_filter';
         $table_filter_options = $wpdb->prefix . 'yufinder_filter_options';

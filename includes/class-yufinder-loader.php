@@ -121,7 +121,8 @@ class yufinder_Loader
      */
     public function run()
     {
-
+        require_once plugin_dir_path(dirname(__FILE__)) . 'includes/class-yufinder-instance.php';
+        require_once plugin_dir_path(dirname(__FILE__)) . 'includes/class-yufinder-data-field.php';
         foreach ($this->filters as $hook) {
             add_filter($hook['hook'], array($hook['component'], $hook['callback']), $hook['priority'], $hook['accepted_args']);
         }
@@ -135,6 +136,13 @@ class yufinder_Loader
         $YUFINDERADMIN = new yufinder_Admin('yufinder', '1.0.0');
         // Load admin menu
         add_action('admin_menu', array($YUFINDERADMIN, 'options_page'), 'options_page');
+        // Load data fields page
+        add_action('admin_menu', array($YUFINDERADMIN, 'data_fields_page'), 'data_fields_page');
+
+        if( is_admin() ) {
+            $yufinder_instance = new yufinder_Instance();
+            $yufinder_data_fields = new yufinder_Data_Field();
+        }
 
     }
 

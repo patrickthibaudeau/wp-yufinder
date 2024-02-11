@@ -1,33 +1,52 @@
 <?php
-global $OUTPUT, $wpdb;
-
-$template = $OUTPUT->loadTemplate('edit_instance');
-
-// Get id from URL. If not set, set to 0
-if (isset($_REQUEST['id'])) {
-    $id = $_REQUEST['id'];
-} else {
-    $id = 0;
+    require_once('../../../../wp-load.php');
+//  is this page called from wordpress?
+if ( ! defined( 'WPINC' ) ) {
+    die;
 }
 
-if ($id != 0) {
-    $instance = $wpdb->get_row("SELECT * FROM {$wpdb->prefix}instances WHERE id = $id");
-    $data = [
-        'id' => $instance->id,
-        'name' => $instance->name,
-        'shortname' => $instance->description,
-        'timecreated' => $instance->timecreated,
-        'timemodified' => $instance->timemodified,
-    ];
+global $wpdb;
+if (!isset($_GET['action'])) {
+    $action = 'edit';
 } else {
-    $data = [
-        'id' => 0,
-        'name' => '',
-        'description' => '',
-        'timecreated' => time(),
-        'timemodified' => time(),
-    ];
+    $action = $_GET['action'];
 }
 
-echo $template->render($data);
+// Get params from request
+$id = $_REQUEST['id'];
+$table = $wpdb->prefix . 'yufinder_instance';
 
+if ($action == 'edit') {
+    $name = $_REQUEST['name'];
+    $shortname = str_replace(' ', '_', $_REQUEST['shortname']);
+// Update or insert
+    if ($id > 0) {
+        $wpdb->update(
+            $table,
+            array(
+                'name' => $name,
+                'shortname' => $shortname,
+                'usermodifed' => get_current_user_id(),
+                'timemodified' => time()
+            ),
+            array('id' => $id),
+            array('%s', '%s', '%d', '%d')
+        );
+    } else {
+        $newid = $wpdb->insert(
+            $table,
+          array(
+              'name' => $name,
+              'shortname' => $shortname,
+              'usermodified' => get_current_user_id(),
+              'timemodified' => time(),
+              'timecreated' => time()
+          ),
+            array('%s', '%s', '%d', '%d', '%d')
+        );
+    }
+} else  {
+    $wpdb->delete($table, array('id' => $id));
+}
+
+wp_redirect(admin_url('admin.php?page=yufinder'));

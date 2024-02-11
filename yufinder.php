@@ -86,3 +86,9 @@ function run_yufinder() {
 
 }
 run_yufinder();
+
+function print_object($object) {
+    echo '<pre>';
+    print_r($object);
+    echo '</pre>';
+}

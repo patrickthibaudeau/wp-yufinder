@@ -87,21 +87,6 @@ class yufinder_Admin {
             $this->version,
             'all'
         );
-		wp_enqueue_style(
-            $this->plugin_name . '_materialize',
-            plugin_dir_url( __FILE__ ) . 'css/materialize.min.css',
-            array(),
-            $this->version,
-            'all'
-        );
-        wp_enqueue_style(
-            $this->plugin_name . '_materialize_icons',
-            'https://fonts.googleapis.com/icon?family=Material+Icons',
-            array(),
-            $this->version,
-            'all'
-        );
-
 	}
 
 	/**
@@ -123,12 +108,30 @@ class yufinder_Admin {
 		 * class.
 		 */
 
-		wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/yufinder-admin.js', array( 'jquery' ), $this->version, false );
-		wp_enqueue_script( $this->plugin_name . '_datatables', plugin_dir_url( __FILE__ ) . 'js/DataTables/datatables.min.js', array( 'jquery' ), $this->version, false );
-		wp_enqueue_script( $this->plugin_name . '_materialze' , plugin_dir_url( __FILE__ ) . 'js/materialize.min.js', array( 'jquery' ), $this->version, false );
-
+		wp_enqueue_script(
+            $this->plugin_name,
+            plugin_dir_url( __FILE__ ) . 'js/yufinder-admin.js',
+            array( 'jquery' ),
+            $this->version,
+            false
+        );
 	}
 
+    /**
+     * Options page html
+     * @return void
+     */
+    public function options_page_html() {
+        if(!class_exists('WP_List_Table')){
+            require_once( ABSPATH . 'wp-admin/includes/class-wp-list-table.php' );
+        }
+
+        require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class-yufinder-instance-table.php';
+
+        $yufinder_instance_table = new yufinder_Instance_Table();
+        $yufinder_instance_table->prepare_items();
+        $yufinder_instance_table->display();
+    }
     // Add options page
     public function options_page()
     {
@@ -136,10 +139,40 @@ class yufinder_Admin {
             'Yufinder Plugin',
             'Yufinder Options',
             'manage_options',
-            plugin_dir_path(__FILE__) . 'view.php',
-            null,
+            'yufinder',
+            [$this, 'options_page_html'],
             'dashicons-admin-generic',
             20
+        );
+    }
+
+    /**
+     * Data Fields page html
+     */
+    public function data_fields_page_html()
+    {
+        if (!class_exists('WP_List_Table')) {
+            require_once(ABSPATH . 'wp-admin/includes/class-wp-list-table.php');
+        }
+
+        require_once plugin_dir_path(dirname(__FILE__)) . 'admin/class-yufinder-data-fields-table.php';
+        $instanceid = $_REQUEST['instanceid'];
+        $yufinder_data_fields_table = new yufinder_Data_Fields_Table($instanceid);
+        $yufinder_data_fields_table->prepare_items();
+        $yufinder_data_fields_table->display();
+    }
+
+    // Load submenu page
+    public function data_fields_page()
+    {
+        // Get instance id
+        add_submenu_page(
+            null, // do not display as submenu option
+            'Data Fields',
+            'Data Fields',
+            'manage_options',
+            'yufinder-view-data-fields',
+            [$this, 'data_fields_page_html']
         );
     }
 
