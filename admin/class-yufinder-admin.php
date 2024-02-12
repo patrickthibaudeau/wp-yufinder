@@ -206,4 +206,34 @@ class yufinder_Admin {
         );
     }
 
+    /**
+     * Platform page html
+     */
+    public function platforms_page_html()
+    {
+        if (!class_exists('WP_List_Table')) {
+            require_once(ABSPATH . 'wp-admin/includes/class-wp-list-table.php');
+        }
+
+        require_once plugin_dir_path(dirname(__FILE__)) . 'admin/class-yufinder-platforms-table.php';
+        $instanceid = $_REQUEST['instanceid'];
+        $yufinder_data_fields_table = new yufinder_Platforms_Table($instanceid);
+        $yufinder_data_fields_table->prepare_items();
+        $yufinder_data_fields_table->display();
+    }
+
+    // Load submenu page
+    public function platforms_page()
+    {
+        // Get instance id
+        add_submenu_page(
+            null, // do not display as submenu option
+            'Platforms',
+            'Platforms',
+            'manage_options',
+            'yufinder-view-platforms',
+            [$this, 'platforms_page_html']
+        );
+    }
+
 }

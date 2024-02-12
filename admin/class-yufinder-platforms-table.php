@@ -1,19 +1,23 @@
 <?php
 
-class yufinder_Instance_Table extends WP_List_Table
+class yufinder_Platforms_Table extends WP_List_Table
 {
+
+    private $instanceid;
 
     /**
      * Constructor, we override the parent to pass our own arguments
      * We usually focus on three parameters: singular and plural labels, as well as whether the class supports AJAX.
      */
-    public function __construct()
+    public function __construct($instanceid)
     {
         parent::__construct(array(
-            'singular' => 'yufinder_instance', //Singular label
-            'plural' => 'yufinder_instances', //plural label, also this well be one of the table css class
+            'singular' => 'yufinder_platform', //Singular label
+            'plural' => 'yufinder_platforms', //plural label, also this well be one of the table css class
             'ajax' => false //We won't support Ajax for this table
         ));
+
+        $this->instanceid = $instanceid;
     }
 
     /**
@@ -25,13 +29,14 @@ class yufinder_Instance_Table extends WP_List_Table
         if ($which == "top") {
             //The code that goes before the table is here
             echo '<div class="wrap">';
-            echo '<h1 class="wp-heading-inline">Instances</h1>';
-            echo '<a href="admin.php?page=yufinder-edit-instance&id=0" class="page-title-action">Add New</a>';
+            echo '<h1 class="wp-heading-inline">Filters</h1>';
+            echo '<a href="admin.php?page=yufinder-edit-platform&instanceid=' . $this->instanceid . '" class="page-title-action">Add New</a>';
+            echo '<hr class="wp-header-end">';
 
         }
         if ($which == "bottom") {
             //The code that goes after the table is there
-            echo '</div>';
+            echo "</div>";
         }
     }
 
@@ -43,8 +48,8 @@ class yufinder_Instance_Table extends WP_List_Table
     {
         return $columns = array(
             'id' => __('ID'),
-            'name' => __('Name'),
-            'shortname' => __('Short code'),
+            'instanceid' => __('Instance ID'),
+            'name' => __('Name')
         );
     }
 
@@ -55,7 +60,7 @@ class yufinder_Instance_Table extends WP_List_Table
     public function get_sortable_columns()
     {
         return $sortable = array(
-            'name' => 'name'
+            'name' => 'Name',
         );
     }
 
@@ -95,7 +100,7 @@ class yufinder_Instance_Table extends WP_List_Table
      */
     public function get_hidden_columns()
     {
-        return array('id');
+        return array('id', 'instanceid');
     }
 
     /**
@@ -106,13 +111,13 @@ class yufinder_Instance_Table extends WP_List_Table
     private function table_data()
     {
         global $wpdb, $OUTPUT;
-        $table = $wpdb->prefix . 'yufinder_instance';
+        $table = $wpdb->prefix . 'yufinder_platform';
         // Prepare SQL query
-        $sql = "SELECT id, name, shortname FROM $table";
+        $sql = "SELECT id, instanceid, name FROM $table";
+        $sql .= " WHERE instanceid = " . $this->instanceid;
         // Add sorting order
         $orderby = !empty($_GET["orderby"]) ? $_GET["orderby"] : 'name';
-        $order = !empty($_GET["order"]) ? $_GET["order"] : 'asc';
-;
+        $order = !empty($_GET["order"]) ? $_GET["order"] : 'asc';;
         if (!empty($orderby) && !empty($order)) {
             $sql .= ' ORDER BY ' . $orderby . ' ' . $order;
         }
@@ -125,43 +130,27 @@ class yufinder_Instance_Table extends WP_List_Table
                 'actions' => [
                     [
                         'action' => 'edit',
-                        'url' => admin_url('admin.php?page=yufinder-edit-instance&action=edit&id=' . $value['id']),
+                        'url' => admin_url(
+                            'admin.php?page=yufinder-edit-platform&id='
+                            . $value['id'] . '&instanceid=' . $value['instanceid']
+                        ),
                         'label' => 'Edit',
                         'title' => 'Edit',
                         'separator' => ' | '
                     ],
                     [
-                        'action' => 'view',
-                        'url' => admin_url('admin.php?page=yufinder-view-data-fields&instanceid=' . $value['id']),
-                        'label' => 'Data fields',
-                        'title' => 'View Data Fields',
-                        'separator' => ' | '
-                    ],
-                    [
-                        'action' => 'view',
-                        'url' => admin_url('admin.php?page=yufinder-view-filters&instanceid=' . $value['id']),
-                        'label' => 'Filters',
-                        'title' => 'View Filters',
-                        'separator' => ' | '
-                    ],
-                    [
-                        'action' => 'view',
-                        'url' => admin_url('admin.php?page=yufinder-view-platforms&instanceid=' . $value['id']),
-                        'label' => 'Platforms',
-                        'title' => 'View Platforms',
-                        'separator' => ' | '
-                    ],
-                    [
                         'action' => 'delete',
-                        'url' => $path = plugin_dir_url(dirname(__FILE__)) . 'admin/edit_instance.php?action=delete&id=' . $value['id'],
+                        'url' => $path = plugin_dir_url(dirname(__FILE__)
+                            . 'admin/edit_platform.php?action=delete&id='
+                            . $value['id'] . '&instanceid=' . $value['instanceid']
+                        ),
                         'label' => 'Delete',
                         'title' => 'Delete',
                         'separator' => ''
                     ]
                 ],
             ];
-            $data[$key]['name'] = $template->render($params);
-            $data[$key]['shortname'] = '[yufinder_' . $value['shortname'] . ' instanceid=' . $value['id'] . ']';
+            $data[$key]['question'] = $template->render($params);
         }
         return $data;
     }
@@ -179,7 +168,6 @@ class yufinder_Instance_Table extends WP_List_Table
         switch ($column_name) {
             case 'id':
             case 'name':
-            case 'shortname':
                 return $item[$column_name];
 
             default:

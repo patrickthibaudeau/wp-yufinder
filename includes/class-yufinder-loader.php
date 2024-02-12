@@ -141,6 +141,8 @@ class yufinder_Loader
         add_action('admin_menu', array($YUFINDERADMIN, 'data_fields_page'), 'data_fields_page');
         // Load Filters page
         add_action('admin_menu', array($YUFINDERADMIN, 'filters_page'), 'filters_page');
+        // Platforms page
+        add_action('admin_menu', array($YUFINDERADMIN, 'platforms_page'), 'platforms_page');
 
         if( is_admin() ) {
             $yufinder_instance = new yufinder_Instance();
