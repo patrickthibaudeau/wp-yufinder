@@ -67,3 +67,11 @@
 .mr-20 {
     margin-right: 20px;
 }
+
+.tablenav {
+    width: 99% !important;
+}
+
+.question-textarea {
+    width: 50%;
+}

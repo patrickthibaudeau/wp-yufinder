@@ -32,11 +32,11 @@ class yufinder_Data_Fields_Table extends WP_List_Table
             echo '<h1 class="wp-heading-inline">Data Fields</h1>';
             echo '<a href="admin.php?page=yufinder-edit-data-field&instanceid=' . $this->instanceid . '" class="page-title-action">Add New</a>';
             echo '<hr class="wp-header-end">';
-            echo '</div>';
+
         }
         if ($which == "bottom") {
             //The code that goes after the table is there
-            echo "";
+            echo '</div>';
         }
     }
 
