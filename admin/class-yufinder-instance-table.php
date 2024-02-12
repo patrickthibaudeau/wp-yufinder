@@ -44,7 +44,7 @@ class yufinder_Instance_Table extends WP_List_Table
         return $columns = array(
             'id' => __('ID'),
             'name' => __('Name'),
-            'shortname' => __('Short name'),
+            'shortname' => __('Short code'),
         );
     }
 
@@ -147,6 +147,7 @@ class yufinder_Instance_Table extends WP_List_Table
                 ],
             ];
             $data[$key]['name'] = $template->render($params);
+            $data[$key]['shortname'] = '[yufinder_' . $value['shortname'] . ' instanceid=' . $value['id'] . ']';
         }
         return $data;
     }
