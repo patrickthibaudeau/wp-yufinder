@@ -18,13 +18,13 @@ $table = $wpdb->prefix . 'yufinder_instance';
 
 if ($action == 'edit') {
     $name = $_REQUEST['name'];
-    $shortname = str_replace(' ', '_', $_REQUEST['shortname']);
+    $shortname = strtolower(str_replace(' ', '_', $_REQUEST['shortname']));
     $params = array(
         'name' => $name,
         'shortname' => $shortname,
         'usermodified' => get_current_user_id(),
         'timemodified' => time()
-    ),
+    );
 // Update or insert
     if ($id > 0) {
         $wpdb->update(
