@@ -178,6 +178,9 @@ class yufinder {
 	 */
 	private function define_admin_hooks() {
 
+
+
+
 		$plugin_admin = new yufinder_Admin(
             $this->get_plugin_name(),
             $this->get_version()
@@ -193,7 +196,6 @@ class yufinder {
             $plugin_admin,
             'enqueue_scripts'
         );
-
 	}
 
 	/**
@@ -220,6 +222,7 @@ class yufinder {
             $plugin_public,
             'enqueue_scripts'
         );
+        $this->loader->add_action( 'init', $plugin_public, 'register_shortcodes' );
 
 	}
 

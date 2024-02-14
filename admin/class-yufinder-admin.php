@@ -15,8 +15,8 @@
  *
  * Defines the plugin name, version, and two examples hooks for how to
  * enqueue the admin-specific stylesheet and JavaScript.
- *
- * @package    Plugin_Name
+ *u
+ * @package    plugin_name
  * @subpackage Plugin_Name/admin
  * @author     Your Name <email@example.com>
  */

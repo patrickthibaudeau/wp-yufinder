@@ -1,5 +1,7 @@
 <?php
 
+
+
 class yufinder_Filters_Table extends WP_List_Table
 {
 

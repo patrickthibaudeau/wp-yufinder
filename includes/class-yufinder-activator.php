@@ -29,7 +29,9 @@ class yufinder_Activator {
 	 *
 	 * @since    1.0.0
 	 */
-	public static function activate() {
+
+
+    public static function activate() {
 
         global $wpdb;
 
@@ -126,6 +128,9 @@ class yufinder_Activator {
         dbDelta( $sql_platform_data );
 
         add_option( 'yufinder_db_version', YUFINDER_DB_VERSION );
-	}
+
+
+
+    }
 
 }
