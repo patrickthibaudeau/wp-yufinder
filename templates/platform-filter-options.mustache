@@ -1,0 +1,11 @@
+<label for="filter_options">Select all that apply</label>
+<br>
+<select id="filter_options" name="filter_options[]" multiple style="width: 80%; min-height: 200px;">
+    {{#filter-options}}
+        <optgroup label="{{optiongroup}}">
+            {{#options}}
+                <option value="{{value}}">{{text}}</option>
+            {{/options}}
+    </optgroup>
+    {{/filter-options}}
+</select>

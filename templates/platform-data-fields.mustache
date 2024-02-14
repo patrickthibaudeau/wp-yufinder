@@ -1,0 +1,30 @@
+{{#data-fields}}
+    <tr>
+        <th scope="row">
+            <label for="{{shortname}}">{{name}}</label>
+        </th>
+        <td>
+
+            {{#text}}
+                <input
+                        type="text"
+                        id="{{shortname}}"
+                        name="data[{{shortname}}]"
+                        value="{{value}}"
+                        class="question-textarea"
+                    {{required}}
+                        class="regular-text"/>
+            {{/text}}
+            {{#textarea}}
+                <textarea
+                        id="{{shortname}}"
+                        name="data[{{shortname}}]"
+                        rows="5"
+                    {{required}}
+                        class="question-textarea">{{value}}</textarea>
+            {{/textarea}}
+            <input type="hidden" name="data['{{shortname}}-platform-data-id']" value="{{pdid}}"/>
+            <input type="hidden" name="data['{{shortname}}-data-field-id']" value="{{dfid}}"/>
+        </td>
+    </tr>
+{{/data-fields}}
