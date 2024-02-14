@@ -124,6 +124,7 @@ class yufinder_Loader
         require_once plugin_dir_path(dirname(__FILE__)) . 'includes/class-yufinder-instance.php';
         require_once plugin_dir_path(dirname(__FILE__)) . 'includes/class-yufinder-data-field.php';
         require_once plugin_dir_path(dirname(__FILE__)) . 'includes/class-yufinder-filter.php';
+        require_once plugin_dir_path(dirname(__FILE__)) . 'includes/class-yufinder-platform.php';
         foreach ($this->filters as $hook) {
             add_filter($hook['hook'], array($hook['component'], $hook['callback']), $hook['priority'], $hook['accepted_args']);
         }
@@ -148,6 +149,7 @@ class yufinder_Loader
             $yufinder_instance = new yufinder_Instance();
             $yufinder_data_fields = new yufinder_Data_Field();
             $yufinder_data_fields = new yufinder_Filter();
+            $yufinder_data_fields = new yufinder_Platform();
         }
 
     }
