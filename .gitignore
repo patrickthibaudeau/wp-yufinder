@@ -18,6 +18,9 @@
 
 /xmlrpc.php
 
+# Php Storm
+/.idea
+
 # Configuration
 wp-config.php
 
