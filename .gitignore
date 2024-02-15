@@ -22,7 +22,7 @@
 /.idea
 
 # Mustache caching
-/.includes/tmp
+/.includes/tmp/
 # Configuration
 wp-config.php
 
