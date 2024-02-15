@@ -21,8 +21,6 @@
 # Php Storm
 /.idea
 
-# Mustache caching
-/.includes/tmp/
 # Configuration
 wp-config.php
 
@@ -55,3 +53,4 @@ wp-config.php
 # Note: If you wish to whitelist themes,
 # uncomment the next line
 #/wp-content/themes
+/includes/tmp/
