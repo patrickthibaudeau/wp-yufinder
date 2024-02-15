@@ -100,4 +100,24 @@ class yufinder_Public {
 
     }
 
+    /**
+     * Register the shortcodes for the public-facing side of the site.
+     *
+     * @since    1.0.0
+     */
+    public function register_shortcodes() {
+        add_shortcode(
+            'yufinder',
+            array( $this, 'yufinder_template')
+        );
+    }
+    function yufinder_template($atts = []) {
+        //return the keys and values in $atts
+        $INSTANCE = new yufinder_Instance($atts['instanceid']);
+        $INSTANCE->get
+        $html = '';
+        print_object($atts);
+        return $html;
+    }
+
 }

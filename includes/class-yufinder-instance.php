@@ -7,13 +7,16 @@ class yufinder_Instance
      */
     private $options;
 
+    private $id;
+
     /**
      * Start up
      */
-    public function __construct()
+    public function __construct($id = 0)
     {
         add_action('admin_menu', array($this, 'add_plugin_page'));
         add_action('admin_init', array($this, 'page_init'));
+        $this->id = $id;
     }
 
     /**
@@ -174,10 +177,10 @@ class yufinder_Instance
      * @param $instanceid
      * @return array|object|null
      */
-    public function get_data_tree($instanceid) {
+    public function get_data_tree() {
         global $wpdb;
         $table = $wpdb->prefix . 'yufinder_instance';
-        $sql = "SELECT * FROM $table WHERE id = $instanceid";
+        $sql = "SELECT * FROM $table WHERE id = $this->instanceid";
         $instance = $wpdb->get_row($sql, ARRAY_A);
         $instance['filters'] = $this->get_filters($instanceid);
         return $instance;

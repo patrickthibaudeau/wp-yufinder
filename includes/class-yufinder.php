@@ -220,6 +220,12 @@ class yufinder {
             $plugin_public,
             'enqueue_scripts'
         );
+        // Add a shortcode
+        $this->loader->add_action(
+            'init',
+            $plugin_public,
+            'register_shortcodes'
+        );
 
 	}
 
