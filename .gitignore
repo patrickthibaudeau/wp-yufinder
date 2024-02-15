@@ -21,6 +21,8 @@
 # Php Storm
 /.idea
 
+# Mustache caching
+/.includes/tmp
 # Configuration
 wp-config.php
 
