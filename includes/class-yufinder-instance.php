@@ -180,9 +180,47 @@ class yufinder_Instance
     public function get_data_tree() {
         global $wpdb;
         $table = $wpdb->prefix . 'yufinder_instance';
+//        $platform
         $sql = "SELECT * FROM $table WHERE id = $this->id";
         $instance = $wpdb->get_row($sql, ARRAY_A);
-//        $instance['filters'] = $this->get_filters($this->id);
+        $instance['filters'] = $this->get_filters($this->id);
+        $instance['platforms']= $this->get_platforms($this->id);
         return $instance;
+    }
+    private function get_platforms($instanceid){
+        global $wpdb;
+        $table = $wpdb->prefix . 'yufinder_platform';
+        $sql = "SELECT * FROM $table WHERE instanceid = $instanceid";
+        $results = $wpdb->get_results($sql, ARRAY_A);
+        return $results;
+    }
+    private function get_filters($instanceid){
+        global $wpdb;
+        $filter_table = $wpdb->prefix . 'yufinder_filter';
+        $options_table = $wpdb->prefix . 'yufinder_filter_options';
+
+// Get the filters
+        $filter_sql = "SELECT id,question,type FROM $filter_table WHERE instanceid = $instanceid";
+        $filters = $wpdb->get_results($filter_sql, ARRAY_A);
+
+// Get the options
+        $options_sql = "SELECT id,value,filterid FROM $options_table";
+        $options = $wpdb->get_results($options_sql, ARRAY_A);
+
+        $options_by_filter_id = [];
+        foreach ($options as $option) {
+            $options_by_filter_id[$option['filterid']][] = $option;
+        }
+
+// Combine the filters with their options
+        foreach ($filters as &$filter) {
+            $filter['options'] = $options_by_filter_id[$filter['id']] ?? [];
+        }
+        unset($filter); // Unset reference to last element
+
+
+
+
+        return $filters;
     }
 }
