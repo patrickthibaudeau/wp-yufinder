@@ -291,30 +291,32 @@ class yufinder_Platform
     public function filter_options_callback()
     {
         global $OUTPUT;
-
+        // Get filteroptions from platform table
+        $filter_options = json_decode($this->options['filteroptions']);
         $options = [];
         $id = 0;
         foreach ($this->options['filter_options'] as $key => $value) {
-
             if ($id != $value['id']) {
                 // Set $id to new value
                 $id = $value['id'];
                 // Set $x to 0. Used for select options
                 $x = 0;
                 $options[$id]['optiongroup'] = $value['question'];
-                if ($value['type'] == 'checkbox') {
-                    $options[$id]['checkbox'] = true;
-                } else {
-                    $options[$id]['radio'] = true;
-                }
+
                 $options[$id]['options'][$x]['text'] = $value['text'];
                 $options[$id]['options'][$x]['value'] = $value['value'];
+                // Check if value is in filter_options
+                if (!empty($filter_options) && in_array($value['value'], $filter_options)) {
+                    $options[$id]['options'][$x]['selected'] = 'selected';
+                }
                 $x++;
-                // Set $id to new value
-
             } else {
                 $options[$id]['options'][$x]['text'] = $value['text'];
                 $options[$id]['options'][$x]['value'] = $value['value'];
+                // Check if value is in filter_options
+                if (!empty($filter_options) && in_array($value['value'], $filter_options)) {
+                    $options[$id]['options'][$x]['selected'] = 'selected';
+                }
                 $x++;
             }
         }
@@ -333,7 +335,6 @@ class yufinder_Platform
     public function data_fields_callback()
     {
         global $OUTPUT;
-        print_object($this->options['data_fields']);
 //        print_object($this->options['data_fields']);
         $template = $OUTPUT->loadTemplate('platform-data-fields');
         $html = $template->render(['data-fields' => $this->options['data_fields']]);

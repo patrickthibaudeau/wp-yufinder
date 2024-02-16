@@ -153,7 +153,7 @@ class yufinder_Instance_Table extends WP_List_Table
                     ],
                     [
                         'action' => 'delete',
-                        'url' => $path = plugin_dir_url(dirname(__FILE__)) . 'admin/edit_instance.php?action=delete&id=' . $value['id'],
+                        'url' =>  plugin_dir_url(dirname(__FILE__)) . 'admin/edit_instance.php?action=delete&id=' . $value['id'],
                         'label' => 'Delete',
                         'title' => 'Delete',
                         'separator' => ''
@@ -161,7 +161,7 @@ class yufinder_Instance_Table extends WP_List_Table
                 ],
             ];
             $data[$key]['name'] = $template->render($params);
-            $data[$key]['shortname'] = '[yufinder_' . $value['shortname'] . ' instanceid=' . $value['id'] . ']';
+            $data[$key]['shortname'] = '[yufinder' . ' instanceid=' . $value['id'] . ']';
         }
         return $data;
     }
