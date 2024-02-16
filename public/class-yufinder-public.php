@@ -114,7 +114,7 @@ class yufinder_Public {
     function yufinder_template($atts = []) {
         //return the keys and values in $atts
         $INSTANCE = new yufinder_Instance($atts['instanceid']);
-        $INSTANCE->get
+        $INSTANCE->get_data_tree();
         $html = '';
         print_object($atts);
         return $html;

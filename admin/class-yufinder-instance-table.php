@@ -116,7 +116,7 @@ class yufinder_Instance_Table extends WP_List_Table
         if (!empty($orderby) && !empty($order)) {
             $sql .= ' ORDER BY ' . $orderby . ' ' . $order;
         }
-
+        // Fetch the items
         $data = $wpdb->get_results($sql, ARRAY_A);
         $template = $OUTPUT->loadTemplate('table-actions');
         foreach ($data as $key => $value) {
@@ -153,7 +153,7 @@ class yufinder_Instance_Table extends WP_List_Table
                     ],
                     [
                         'action' => 'delete',
-                        'url' => $path = plugin_dir_url(dirname(__FILE__)) . 'admin/edit_instance.php?action=delete&id=' . $value['id'],
+                        'url' =>  plugin_dir_url(dirname(__FILE__)) . 'admin/edit_instance.php?action=delete&id=' . $value['id'],
                         'label' => 'Delete',
                         'title' => 'Delete',
                         'separator' => ''
@@ -161,8 +161,7 @@ class yufinder_Instance_Table extends WP_List_Table
                 ],
             ];
             $data[$key]['name'] = $template->render($params);
-
-            $data[$key]['shortname'] = '[yufinder_' . $value['shortname'] . ' instanceid=' . $value['id'] . ']';
+            $data[$key]['shortname'] = '[yufinder' . ' instanceid=' . $value['id'] . ']';
         }
         return $data;
     }

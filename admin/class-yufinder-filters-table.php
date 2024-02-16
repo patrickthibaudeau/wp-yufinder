@@ -146,10 +146,9 @@ class yufinder_Filters_Table extends WP_List_Table
                     ],
                     [
                         'action' => 'delete',
-                        'url' => $path = plugin_dir_url(dirname(__FILE__)
+                        'url' => plugin_dir_url(dirname(__FILE__))
                             . 'admin/edit_filter.php?action=delete&id='
-                            . $value['id'] . '&instanceid=' . $value['instanceid']
-                        ),
+                            . $value['id'] . '&instanceid=' . $value['instanceid'],
                         'label' => 'Delete',
                         'title' => 'Delete',
                         'separator' => ''

@@ -23,8 +23,8 @@
                     {{required}}
                         class="question-textarea">{{value}}</textarea>
             {{/textarea}}
-            <input type="hidden" name="data['{{shortname}}-platform-data-id']" value="{{pdid}}"/>
-            <input type="hidden" name="data['{{shortname}}-data-field-id']" value="{{dfid}}"/>
+            <input type="hidden" name="data[{{shortname}}_platform_data_id]" value="{{pdid}}"/>
+            <input type="hidden" name="data[{{shortname}}_data_field_id]" value="{{dfid}}"/>
         </td>
     </tr>
 {{/data-fields}}

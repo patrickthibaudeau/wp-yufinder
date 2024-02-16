@@ -140,17 +140,16 @@ class yufinder_Platforms_Table extends WP_List_Table
                     ],
                     [
                         'action' => 'delete',
-                        'url' => $path = plugin_dir_url(dirname(__FILE__)
+                        'url' => plugin_dir_url(dirname(__FILE__))
                             . 'admin/edit_platform.php?action=delete&id='
-                            . $value['id'] . '&instanceid=' . $value['instanceid']
-                        ),
+                            . $value['id'] . '&instanceid=' . $value['instanceid'],
                         'label' => 'Delete',
                         'title' => 'Delete',
                         'separator' => ''
                     ]
                 ],
             ];
-            $data[$key]['question'] = $template->render($params);
+            $data[$key]['name'] = $template->render($params);
         }
         return $data;
     }
