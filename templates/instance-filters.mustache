@@ -1,0 +1,27 @@
+{{#filters}}
+        <li>
+
+         <div class='help' id='explanation-{{id}}'><h3>{{filter}}</h3><p>{{{description}}}</p></div>
+        <fieldset aria-labelledby='filter-{{id}}'>
+        {{#choices}}
+            <div class='checkbox' facetid='{{id}}'>
+            <label for='facet-{{id}}'>
+            <input type='checkbox' name='facet-{{id}}' id='facet-{{id}}' {{checked}} class='facet' facetid='{{id}}'> {{text}}
+            </label>
+            </div>
+        {{/choices}}
+        </fieldset>
+        </li>
+{{/filters}}"
+
+
+
+
+
+        <div class='filter-wrapper'>
+        <h4 id='filter-{{id}}'>{{filter}}</h4>
+         <a aria-haspopup='true' class='popup' data-hidden='true' href='#explanation-{{id}}'>
+            <span class='fa fa-info-circle' aria-hidden='true'></span>
+            <span class='sr-only'>More info about {{filter}}</span>
+        </a>
+        </div>
