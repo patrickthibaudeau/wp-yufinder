@@ -180,9 +180,9 @@ class yufinder_Instance
     public function get_data_tree() {
         global $wpdb;
         $table = $wpdb->prefix . 'yufinder_instance';
-        $sql = "SELECT * FROM $table WHERE id = $this->instanceid";
+        $sql = "SELECT * FROM $table WHERE id = $this->id";
         $instance = $wpdb->get_row($sql, ARRAY_A);
-        $instance['filters'] = $this->get_filters($instanceid);
+//        $instance['filters'] = $this->get_filters($this->id);
         return $instance;
     }
 }

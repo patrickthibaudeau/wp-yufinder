@@ -106,18 +106,13 @@ class yufinder_Public {
      * @since    1.0.0
      */
     public function register_shortcodes() {
+        require_once plugin_dir_path( dirname( __FILE__ ) ).'public/class-yufinder-build-shortcodes.php' ;
+        $shortcode_builder= new yu_finder_build_shortcodes();
         add_shortcode(
             'yufinder',
-            array( $this, 'yufinder_template')
+            array( $shortcode_builder, 'build_yufinder_public')
         );
     }
-    function yufinder_template($atts = []) {
-        //return the keys and values in $atts
-        $INSTANCE = new yufinder_Instance($atts['instanceid']);
-        $INSTANCE->get
-        $html = '';
-        print_object($atts);
-        return $html;
-    }
+
 
 }
