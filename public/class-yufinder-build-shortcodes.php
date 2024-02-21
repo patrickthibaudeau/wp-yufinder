@@ -24,10 +24,10 @@ class yu_finder_build_shortcodes
         $data= $INSTANCE->get_data_tree();
 
 
-        print_object($data['platforms']);
+//        print_object($data['platforms']);
         //temp functions to load tests
 //        $test_template=$this->load_options($data['filters']);
-        $test_template=$this->load_platforms($data['platforms']);
+        $test_template=$this->load_platforms($data);
 
     return $test_template;
 
@@ -56,28 +56,14 @@ class yu_finder_build_shortcodes
 
         //load template
         $template=$OUTPUT->loadTemplate('instance-platforms');
+        print_object($platforms["platforms"][0]);
+
+
         //
-        $services = array(
-            array(
-                "id" => "1",
-                "checked" => "checked",
-                "title" => "Service 1",
-                "summary" => "This is a summary of service 1."
-            ),
-            array(
-                "id" => "2",
-                "checked" => "",
-                "title" => "Service 2",
-                "summary" => "This is a summary of service 2."
-            ),
-            array(
-                "id" => "3",
-                "checked" => "checked",
-                "title" => "Service 3",
-                "summary" => "This is a summary of service 3."
-            )
-        );
-        return $template->render($services);
+//        $params=[
+//            'platforms'=>$platforms
+//        ];
+        return $template->render($platforms);
 
     }
 

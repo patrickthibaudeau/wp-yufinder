@@ -197,21 +197,44 @@ class yufinder_Instance
         $platform_table = $wpdb->prefix . 'yufinder_platform';
         $data_table = $wpdb->prefix. 'yufinder_platform_data';
         //get platforms
-        $platforms_sql = "SELECT id, name, description FROM $platform_table WHERE instanceid = $instanceid";
-        $platforms = $wpdb->get_results($platforms_sql, ARRAY_A);
-        //get platform data
-        $pd_sql = "SELECT * FROM  $data_table WHERE instanceid = $instanceid";
-        $platform_data = $wpdb->get_results($pd_sql, ARRAY_A);
-        //group data by platform
-        $grouped_platform_data=[];
-        foreach($platform_data as $pd){
-            $grouped_platform_data[$pd['platformid']][] = $pd;
+;
+//        $sql= 'Select p.id as pid, p.name, p.description, d.id as dataid, d.platformid, d.value
+//        From ' . $platform_table . ' as p
+//        Left Join '. $data_table.' as d on p.id = d.platformid
+//        Where p.instanceid = '.$instanceid;
+
+
+        $sql='SELECT p.id as pid, p.name, p.description, d.id ,d.datafieldid as dataid, d.platformid, d.value
+        FROM ' . $platform_table . ' as p
+        LEFT JOIN '. $data_table.' as d on p.id = d.platformid
+        WHERE p.instanceid = '.$instanceid;
+
+
+
+
+
+        $platforms = $wpdb->get_results($sql, ARRAY_A);
+//
+        $data = [];
+        foreach($platforms as $platform){
+            $name = $platform["name"];
+            if (!isset($data[$name])) {
+                $data[$name] = [
+                    "name" => $name,
+                    "platformid" => $platform["pid"],
+                    "description" => $platform["description"],
+                    "data" => []
+                ];
+            }
+            $data[$name]["data"][] = ["dataid" => $platform["dataid"], "value" => $platform["value"]];
         }
-        //combine data and platform
-        foreach($platforms as &$platform){
-            $platform['data']= $grouped_platform_data[$platform['id'] ?? []];
+        $platforms=[];
+        $i=0;
+        foreach($data as $platform){
+            $platforms[$i]=$platform;
+           $i++;
         }
-        unset($platform);
+
         return $platforms;
 
     }
