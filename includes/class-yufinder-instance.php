@@ -187,12 +187,33 @@ class yufinder_Instance
         $instance['platforms']= $this->get_platforms($this->id);
         return $instance;
     }
+    /**
+     * get instance platforms
+     * @param $instanceid int id for instance
+     * @return array of platforms with data
+     */
     private function get_platforms($instanceid){
         global $wpdb;
-        $table = $wpdb->prefix . 'yufinder_platform';
-        $sql = "SELECT * FROM $table WHERE instanceid = $instanceid";
-        $results = $wpdb->get_results($sql, ARRAY_A);
-        return $results;
+        $platform_table = $wpdb->prefix . 'yufinder_platform';
+        $data_table = $wpdb->prefix. 'yufinder_platform_data';
+        //get platforms
+        $platforms_sql = "SELECT id, name, description FROM $platform_table WHERE instanceid = $instanceid";
+        $platforms = $wpdb->get_results($platforms_sql, ARRAY_A);
+        //get platform data
+        $pd_sql = "SELECT * FROM  $data_table WHERE instanceid = $instanceid";
+        $platform_data = $wpdb->get_results($pd_sql, ARRAY_A);
+        //group data by platform
+        $grouped_platform_data=[];
+        foreach($platform_data as $pd){
+            $grouped_platform_data[$pd['platformid']][] = $pd;
+        }
+        //combine data and platform
+        foreach($platforms as &$platform){
+            $platform['data']= $grouped_platform_data[$platform['id'] ?? []];
+        }
+        unset($platform);
+        return $platforms;
+
     }
     private function get_filters($instanceid){
         global $wpdb;

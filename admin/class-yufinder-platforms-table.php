@@ -152,6 +152,7 @@ class yufinder_Platforms_Table extends WP_List_Table
             $data[$key]['name'] = $template->render($params);
         }
         return $data;
+
     }
 
     /**

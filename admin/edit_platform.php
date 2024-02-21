@@ -1,5 +1,11 @@
 <?php
 require_once('../../../../wp-load.php');
+
+
+/**
+TODO: figure out if we want error processing on insert/update
+
+ */
 //  is this page called from wordpress?
 if (!defined('WPINC')) {
     die;
@@ -44,11 +50,13 @@ if ($action == 'edit') {
         );
     } else {
         $params['timecreated'] = time();
-        $id = $wpdb->insert(
+        $wpdb->insert(
             $table,
             $params,
             array('%d', '%s', '%s', '%s', '%d', '%d', '%d')
         );
+        $id=$wpdb->insert_id;
+
     }
     // Save platform data fields
     $data = $_REQUEST['data'];

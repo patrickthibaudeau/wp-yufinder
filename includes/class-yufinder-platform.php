@@ -44,26 +44,25 @@ class yufinder_Platform
         }
         $instanceid = $_REQUEST['instanceid'];
 
-        // Get data fields
         $data_fields_sql = 'Select
-                                    df.id as dfid,
-                                    df.name,
-                                    df.shortname,
-                                    df.type,
-                                    if (df.required = 1, "required", "optional") as required,
-                                    pd.id as pdid,
-                                    pd.value,
-                                    pd.platformid
-                                From
-                                    ' . $wpdb->prefix . 'yufinder_data_fields df Left Join
-                                    ' . $wpdb->prefix . 'yufinder_platform_data pd On pd.datafieldid = df.id
-                                Where
-                                    df.instanceid = ' . $instanceid;
-        if ($id > 0) {
-            $data_fields_sql .= ' And pd.platformid = ' . $id;
-        }
-        // Execute SQL query
+                        df.id as dfid,
+                        df.name,
+                        df.shortname,
+                        df.type,
+                        if (df.required = 1, "required", "optional") as required,
+                        if(pd.id is null, 0, pd.id) as pdid,
+                        pd.value,
+                        pd.platformid
+                    From
+                        ' . $wpdb->prefix . 'yufinder_data_fields df 
+                    Left Join
+                        ' . $wpdb->prefix . 'yufinder_platform_data pd On pd.datafieldid = df.id and pd.platformid = ' . $id . '
+                    Where
+                        df.instanceid = ' . $instanceid;
+
+// Execute SQL query
         $data_fields = $wpdb->get_results($data_fields_sql, ARRAY_A);
+
         // Set text and textarea fields
         foreach ($data_fields as $key => $value) {
             if ($value['type'] == 'text') {
@@ -100,12 +99,14 @@ class yufinder_Platform
         }
         // Set class property
         if ($id > 0) {
+
             $this->options = $wpdb->get_row(
                 'SELECT * FROM ' . $wpdb->prefix . 'yufinder_platform WHERE id = ' . $id,
                 ARRAY_A
             );
 
         } else {
+
             $this->options = array(
                 'id' => 0,
                 'instanceid' => $instanceid,
@@ -114,6 +115,7 @@ class yufinder_Platform
             );
         }
         // Add data_fields to options
+
         $this->options['data_fields'] = $data_fields;
         $this->options['filter_options'] = $filter_options;
 

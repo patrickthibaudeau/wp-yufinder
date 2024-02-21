@@ -159,6 +159,7 @@ class yufinder_Data_Fields_Table extends WP_List_Table
             $data[$key]['required'] = $value['required'] == 1 ? 'Yes' : 'No';
         }
         return $data;
+
     }
 
     /**
