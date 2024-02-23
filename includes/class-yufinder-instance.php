@@ -185,6 +185,11 @@ class yufinder_Instance
         $instance = $wpdb->get_row($sql, ARRAY_A);
         $instance['filters'] = $this->get_filters($this->id);
         $instance['platforms']= $this->get_platforms($this->id);
+
+        $instance['platform_table_title']= $this->get_platform_table_title_desc($this->id);
+        $instance['platform_table_desc']= $this->get_platform_table_title_desc($this->id);
+        $instance['platform_table_data']= $this->get_platform_table_data($this->id);
+
         return $instance;
     }
     /**
@@ -267,4 +272,46 @@ class yufinder_Instance
 
         return $filters;
     }
+
+    private function get_platform_table_data($instanceid){
+        global $wpdb;
+        $datafields_table = $wpdb->prefix . 'yufinder_data_fields';
+        $platformdata_table = $wpdb->prefix . 'yufinder_platform_data';
+
+// Get the filters
+        $datafields_sql = "SELECT id,name FROM $datafields_table WHERE instanceid = $instanceid";
+        $datafields = $wpdb->get_results($datafields_sql, ARRAY_A);
+
+// Get the options
+        $platformdata_sql = "SELECT id,platformid,datafieldid,value FROM $platformdata_table";
+        $platformdata = $wpdb->get_results($platformdata_sql, ARRAY_A);
+
+        $platformdata_by_datafield_id = [];
+        foreach ($platformdata as $platform) {
+            $platformdata_by_datafield_id[$platform['datafieldid']][] = $platform;
+        }
+
+// Combine the filters with their options
+        foreach ($datafields as &$datafield) {
+            $datafield['platforms_data'] = $platformdata_by_datafield_id[$datafield['id']] ?? [];
+        }
+        unset($datafield); // Unset reference to last element
+
+
+
+
+        return $datafields;
+    }
+
+    private function get_platform_table_title_desc($instanceid){
+        global $wpdb;
+        $table = $wpdb->prefix . 'yufinder_platform';
+
+// Get the filters
+        $table_sql = "SELECT id,name,description FROM $table WHERE instanceid = $instanceid";
+        $result = $wpdb->get_results($table_sql, ARRAY_A);
+
+        return $result;
+    }
+
 }
