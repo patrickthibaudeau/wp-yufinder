@@ -186,9 +186,7 @@ class yufinder_Instance
         $instance['filters'] = $this->get_filters($this->id);
         $instance['platforms']= $this->get_platforms($this->id);
 
-        $instance['platform_table_title']= $this->get_platform_table_title_desc($this->id);
-        $instance['platform_table_desc']= $this->get_platform_table_title_desc($this->id);
-        $instance['platform_table_data']= $this->get_platform_table_data($this->id);
+        $instance['data_fields']= $this->get_data_fields($this->id);
 
         return $instance;
     }

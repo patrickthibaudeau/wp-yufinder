@@ -145,6 +145,13 @@ class yufinder_Loader
         // Platforms page
         add_action('admin_menu', array($YUFINDERADMIN, 'platforms_page'), 'platforms_page');
 
+
+        //load public enqueue scripts and styles
+
+        $YUFINDERPUBLIC = new yufinder_Public('yufinder', '1.0.0');
+
+
+
         if( is_admin() ) {
             $yufinder_instance = new yufinder_Instance();
             $yufinder_data_fields = new yufinder_Data_Field();

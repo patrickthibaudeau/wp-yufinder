@@ -1,0 +1,46 @@
+/**
+ * All of the CSS for your public-facing functionality should be
+ * included in this file. I AM A TEST CAUSE SOMETHING WEIRD IS HAPPENING
+ *
+ */
+
+/*#yu-finder-test-id {*/
+/*    border: 10px solid red;*/
+/*    font-size: 1px;*/
+/*}*/
+
+
+/*#yu-finder-test-id td:nth-child(2) {*/
+/*    display: flex;*/
+/*    flex-direction: column;*/
+/*}*/
+
+
+
+/*#yu-finder-test-id {*/
+/*    display: grid;*/
+/*    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));*/
+/*}*/
+
+
+/*#yu-finder-test-id {*/
+/*    display: grid;*/
+/*    grid-template-columns: repeat(4, 1fr);*/
+/*}*/
+
+.yufinder_container{
+    width:100%;
+
+    max-width: 90% !important;
+
+
+}
+.yufinder_platforms_container {
+    display: flex;
+    flex-wrap: wrap;
+}
+.yufinder_platform_cell{
+    flex: 21%; /* This sets the width of each child item */
+    margin: 5px;
+    height: 100px;
+}

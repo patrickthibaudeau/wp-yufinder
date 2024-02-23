@@ -73,7 +73,6 @@ class yufinder_Public {
          * class.
          */
 
-        wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/yufinder-public.css', array(), $this->version, 'all' );
 
     }
 
@@ -96,9 +95,10 @@ class yufinder_Public {
          * class.
          */
 
-        wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/yufinder-public.js', array( 'jquery' ), $this->version, false );
+        wp_enqueue_style( $this->plugin_name.'_public', plugin_dir_url( __FILE__ ) . 'css/yufinder-public-styling.css', array(), $this->version, 'all' );
 
-    }
+        wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/yufinder-public.js', array( 'jquery' ), $this->version, false );
+ }
 
     /**
      * Register the shortcodes for the public-facing side of the site.

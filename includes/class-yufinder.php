@@ -211,7 +211,7 @@ class yufinder {
         );
 
 		$this->loader->add_action(
-            'wp_enqueue_scripts',
+            'wp_enqueue_styles',
             $plugin_public,
             'enqueue_styles'
         );
@@ -226,6 +226,7 @@ class yufinder {
             $plugin_public,
             'register_shortcodes'
         );
+
 
 	}
 

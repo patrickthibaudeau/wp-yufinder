@@ -23,36 +23,37 @@ class yu_finder_build_shortcodes
 
         $INSTANCE = new yufinder_Instance($atts['instanceid']);
         $data= $INSTANCE->get_data_tree();
+//        print_object($data["data_fields"]);
 
 
 //        print_object($data['platforms']);
-        //temp functions to load tests
-//        $test_template=$this->load_options($data['filters']);
-       // $test_template=$this->load_platforms($data);
+//        temp functions to load tests
 
-    // return $test_template;
+//        $test_template=$this->load_platforms($data);
 
-        $html .= "<table class=\"table table-striped table-bordered scrolling\" id=\"comparisonchart\"><thead><tr><td></td>";
+        $template= $OUTPUT->loadTemplate("yufinder-display");
+        return $template->render($data);
+//        $html .= "<table class=\"table table-striped table-bordered scrolling\" id=\"comparisonchart\"><thead><tr><td></td>";
+//
+//        $platform_table_title_template=$this->load_platform_table_title($data['platform_table_title']);
+//
+//        $html .= $platform_table_title_template;
+//
+//        $html .= "</tr></thead><tbody><tr><th scope=\"row\">Description</th>";
+//
+//        $platform_table_desc_template=$this->load_platform_table_desc($data['platform_table_desc']);
+//
+//        $html .= $platform_table_desc_template;
+//
+//        $html .= "</tr>";
+//
+//        $platform_table_data_template=$this->load_platform_table_data($data['platform_table_data']);
+//
+//        $html .= $platform_table_data_template;
+//
+//        $html .= "</tbody></table>";
 
-        $platform_table_title_template=$this->load_platform_table_title($data['platform_table_title']);
-
-        $html .= $platform_table_title_template;
-
-        $html .= "</tr></thead><tbody><tr><th scope=\"row\">Description</th>";
-
-        $platform_table_desc_template=$this->load_platform_table_desc($data['platform_table_desc']);
-
-        $html .= $platform_table_desc_template;
-
-        $html .= "</tr>";
-
-        $platform_table_data_template=$this->load_platform_table_data($data['platform_table_data']);
-
-        $html .= $platform_table_data_template;
-
-        $html .= "</tbody></table>";
-
-        return $html;
+//        return $html;
 
     }
 
@@ -67,10 +68,10 @@ class yu_finder_build_shortcodes
         //load template
         $template=$OUTPUT->loadTemplate('instance-filters');
         //
-        $params=[
-            'filters'=>$options
-        ];
-        return $template->render($params);
+//        $params=[
+//            'filters'=>$options
+//        ];
+        return $template->render($options);
 
     }
     private function load_platforms($platforms)    {
@@ -78,8 +79,6 @@ class yu_finder_build_shortcodes
 
         //load template
         $template=$OUTPUT->loadTemplate('instance-platforms');
-        print_object($platforms["platforms"][0]);
-
 
         //
 //        $params=[
