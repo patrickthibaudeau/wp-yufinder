@@ -19,18 +19,21 @@ class yu_finder_build_shortcodes
         global $OUTPUT;
         //Create an instance from given ID
 
-        $html = "";
+       //  $html = "";
 
         $INSTANCE = new yufinder_Instance($atts['instanceid']);
         $data= $INSTANCE->get_data_tree();
 //        print_object($data["data_fields"]);
 
 
-//        print_object($data['platforms']);
+        // print_object($data['data_fields']);
+         // print_object($data['platforms']);
+
 //        temp functions to load tests
 
 //        $test_template=$this->load_platforms($data);
 
+        // $template= $OUTPUT->loadTemplate("yufinder-display");
         $template= $OUTPUT->loadTemplate("yufinder-display");
         return $template->render($data);
 //        $html .= "<table class=\"table table-striped table-bordered scrolling\" id=\"comparisonchart\"><thead><tr><td></td>";

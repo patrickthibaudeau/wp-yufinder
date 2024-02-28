@@ -44,3 +44,92 @@
     margin: 5px;
     height: 100px;
 }
+
+.platforms_table {
+    display: table;
+}
+
+.platforms_table {
+    margin-top: 0;
+    width: 100%;
+    max-width: 100%;
+    margin: 0 0 10px;
+    background-color: transparent;
+    border-spacing: 0;
+    border-collapse: collapse;
+}
+
+.table-bordered {
+    border: 1px solid #ddd;
+}
+
+.platforms_table tr {
+    display: table-cell;
+
+}
+.platforms_table tr td {
+    display: block;
+}
+
+.platforms_table tr th {
+    display: block;
+}
+
+#comparisonchart th {
+    white-space: nowrap;
+    background-color: #78879d;
+    /* padding: 12px; */
+}
+
+#comparisonchart tr:first-child th {
+    background: #f3f3f3;
+}
+
+#comparisonchart tr:not(:first-child) th {
+    color: #fff;
+}
+
+#comparisonchart tr:first-child td:first-child {
+    white-space: nowrap;
+    background-color: #78879d;
+    /* padding: 12px; */
+}
+
+.table-bordered>tbody>tr>td, .table-bordered>tbody>tr>th {
+    border: 1px solid #ddd;
+}
+
+.table-striped>tbody>tr>td:nth-of-type(odd) {
+    background-color: #f9f9f9;
+}
+
+.table-striped>tbody>tr>td:nth-of-type(even) {
+    background-color: #f1efef;
+}
+
+
+/* .platforms_table.scrolling > tr > th {
+    border: 0;
+    border-left: 1px solid #ccc;
+}
+
+ */
+
+/* .platform_table tr td p {
+    display: inline-block !important;
+} */
+
+/* .row {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    width: 100%;
+}
+
+.column {
+    display: flex;
+    flex-direction: column;
+    flex-basis: 100%;
+    flex: 1;
+} */
+

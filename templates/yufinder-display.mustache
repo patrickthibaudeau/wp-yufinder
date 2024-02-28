@@ -1,5 +1,3 @@
-
-
 <div class="yufinder_container">
 <table id= "yu-finder-test-id">
   <tr>
@@ -18,10 +16,17 @@
     </td>
   </tr>
   <tr>
-    <td colspan="2">datafields</td>
+      <td colspan="2">
+      <table class="platforms_table table-striped table-bordered scrolling" id="comparisonchart">
+      <tr>
+        <td>&nbsp;</td>
+        {{> instance-platform-table-column-label}}
+      </tr>
+      {{> instance-platform-table-column-data}}
+      </table>
+
+    </td>
   </tr>
 </table>
 </div>
-
-
 
