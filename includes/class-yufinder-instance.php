@@ -187,9 +187,25 @@ class yufinder_Instance
         $instance['platforms']= $this->get_platforms($this->id);
 
         $instance['data_fields']= $this->get_data_fields($this->id);
+        // $instance['platform_table_title']= $this->get_platform_table_title_desc($this->id);
+        // $instance['platform_table_desc']= $this->get_platform_table_title_desc($this->id);
+        // $instance['platform_table_data']= $this->get_platform_table_data($this->id);
 
         return $instance;
     }
+
+
+    private function get_data_fields($instanceid){
+        global $wpdb;
+        $datafields_table = $wpdb->prefix . 'yufinder_data_fields';
+
+// Get the filters
+        $datafields_sql = "SELECT id,name FROM $datafields_table WHERE instanceid = $instanceid";
+        $datafields = $wpdb->get_results($datafields_sql, ARRAY_A);
+
+        return $datafields;
+    }
+
     /**
      * get instance platforms
      * @param $instanceid int id for instance
@@ -207,16 +223,25 @@ class yufinder_Instance
 //        Where p.instanceid = '.$instanceid;
 
 
+        /* $sql='SELECT p.id as pid, p.name, p.description, d.id ,d.datafieldid as dataid, d.platformid, d.value
+        FROM ' . $platform_table . ' as p
+        LEFT JOIN '. $data_table.' as d on p.id = d.platformid
+        WHERE p.instanceid = '.$instanceid; */
+
         $sql='SELECT p.id as pid, p.name, p.description, d.id ,d.datafieldid as dataid, d.platformid, d.value
         FROM ' . $platform_table . ' as p
         LEFT JOIN '. $data_table.' as d on p.id = d.platformid
-        WHERE p.instanceid = '.$instanceid;
+        WHERE p.instanceid = '.$instanceid. '
+        ORDER BY p.name, d.datafieldid';
 
 
 
 
 
         $platforms = $wpdb->get_results($sql, ARRAY_A);
+
+        // return $platforms;
+        // print_object($platforms);
 //
         $data = [];
         foreach($platforms as $platform){
