@@ -17,6 +17,16 @@
   </tr>
   <tr>
       <td colspan="2">
+      <div class="step3-button-container">
+         <h2 class="sub-heading">Step 3: Compare providers: Explore the details of the providers you have chosen</h2>
+          <button class="select-all-btn" onclick="selectAll()">Select All</button>
+          <button class="clear-all-btn "onclick="clearAll()">Clear All</button>
+      </div>
+      <div class="platforms_compare_checklist">
+      {{> instance-platform-table-compare-checklist}}
+
+      </div>
+
       <table class="platforms_table table-striped table-bordered scrolling" id="comparisonchart">
       <tr>
         <td>&nbsp;</td>
