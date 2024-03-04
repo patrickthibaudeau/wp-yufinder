@@ -1,4 +1,4 @@
-(function( $ ) {
+(function ($) {
     'use strict';
 
     /**
@@ -29,4 +29,42 @@
      * practising this, we should strive to set a better example in our own work.
      */
 
-})( jQuery );
+    function toggleColumn(id) {
+        var cells = document.getElementsByClassName(id);
+        // Convert HTMLCollection to an array
+        var cellsArray = Array.from(cells);
+
+        cellsArray.forEach(function(cell) {
+            if (cell.classList.contains('hidden')) {
+                cell.classList.remove('hidden');
+            } else {
+                cell.classList.add('hidden');
+            }
+        });
+    }
+
+    function selectAll() {
+        var checkboxes = document.querySelectorAll('.btn-checkbox input[type="checkbox"]');
+        checkboxes.forEach(function(checkbox) {
+            if (!checkbox.checked) {
+                checkbox.checked = true;
+                checkbox.dispatchEvent(new Event('click')); // Dispatch a click event on the checkbox
+            }
+        });
+    }
+
+    function clearAll() {
+        var checkboxes = document.querySelectorAll('.btn-checkbox input[type="checkbox"]');
+        checkboxes.forEach(function(checkbox) {
+            if (checkbox.checked) {
+                checkbox.checked = false;
+                checkbox.dispatchEvent(new Event('click')); // Dispatch a click event on the checkbox
+            }
+        });
+    }
+
+    window.toggleColumn = toggleColumn;
+    window.selectAll = selectAll;
+    window.clearAll = clearAll;
+
+})(jQuery);
