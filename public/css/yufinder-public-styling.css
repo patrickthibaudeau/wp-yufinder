@@ -178,6 +178,7 @@ handling size changes
     border-radius: 50%; /* Make it circular */
     /*display: block;*/
 }
+
 .platforms_table {
     display: table;
 }
