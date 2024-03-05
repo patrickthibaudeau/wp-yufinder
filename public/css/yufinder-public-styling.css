@@ -50,12 +50,10 @@
 }
 
 .platforms_table {
-    margin-top: 0;
     width: 100%;
     max-width: 100%;
     margin: 0 0 10px;
     background-color: transparent;
-    border-spacing: 0;
     border-collapse: collapse;
 }
 
@@ -65,10 +63,12 @@
 
 .platforms_table tr {
     display: table-cell;
-
 }
 .platforms_table tr td {
     display: block;
+    /*overflow: hidden;
+    white-space: nowrap; */
+    word-wrap: break-word;
 }
 
 .platforms_table tr th {
@@ -76,9 +76,11 @@
 }
 
 #comparisonchart th {
-    white-space: nowrap;
+    /* white-space: normal; */
     background-color: #78879d;
     /* padding: 12px; */
+    overflow: hidden;
+    white-space: nowrap;
 }
 
 #comparisonchart tr:first-child th {
@@ -90,7 +92,7 @@
 }
 
 #comparisonchart tr:first-child td:first-child {
-    white-space: nowrap;
+    /* white-space: normal; */
     background-color: #78879d;
     /* padding: 12px; */
 }
@@ -106,6 +108,13 @@
 .table-striped>tbody>tr>td:nth-of-type(even) {
     background-color: #f1efef;
 }
+
+
+/* -- start -- */
+
+
+
+/* -- end -- */
 
 
 .platforms_compare_checklist {

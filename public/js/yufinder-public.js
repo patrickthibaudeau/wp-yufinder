@@ -63,6 +63,99 @@
         });
     }
 
+    function platforms_table_layout_align () {
+
+        var table = document.getElementById('comparisonchart');
+        var rows = table.getElementsByTagName('tr');
+
+        var th_cells = rows[0].getElementsByTagName('th');
+
+        for (var j = 0; j < th_cells.length; j++) {
+
+            var maxRowHeight = 0;
+
+            console.log(th_cells[j]);
+
+            var th_cell_index = th_cells[j].cellIndex;
+
+            console.log(th_cell_index);
+
+            for (var i = 1; i < rows.length; i++) {
+                var td_cells = rows[i].getElementsByTagName('td');
+                // console.log(td_cells)
+                for (var k = 0; k < td_cells.length; k++) {
+                    if (k == th_cell_index-1) {
+                        console.log(td_cells[k]);
+                        maxRowHeight = Math.max(maxRowHeight, td_cells[k].offsetHeight);
+                        console.log(maxRowHeight);
+                    }
+                }
+            }
+            for (var i = 1; i < rows.length; i++) {
+                var td_cells = rows[i].getElementsByTagName('td');
+                for (var k = 0; k < td_cells.length; k++) {
+                    if ( k == th_cell_index-1 ) {
+                        // console.log(td_cells[k]);
+                        td_cells[k].style.height = maxRowHeight + 'px';
+                    }
+                }
+            }
+
+            th_cells[j].style.height = maxRowHeight + 'px';
+            // cells[j].style.height = 'auto';
+            //maxRowHeight = Math.max(maxRowHeight, cells[j].offsetHeight);
+        }
+    }
+
+    window.addEventListener('DOMContentLoaded', platforms_table_layout_align);
+    window.addEventListener('resize', platforms_table_layout_align);
+
+    /* window.addEventListener('DOMContentLoaded', function() {
+        var table = document.getElementById('comparisonchart');
+        var rows = table.getElementsByTagName('tr');
+
+        var th_cells = rows[0].getElementsByTagName('th');
+
+        for (var j = 0; j < th_cells.length; j++) {
+
+            var maxRowHeight = 0;
+
+            console.log(th_cells[j]);
+
+            var th_cell_index = th_cells[j].cellIndex;
+
+            console.log(th_cell_index);
+
+            for (var i = 1; i < rows.length; i++) {
+                var td_cells = rows[i].getElementsByTagName('td');
+                // console.log(td_cells)
+                for (var k = 0; k < td_cells.length; k++) {
+                    if (k == th_cell_index-1) {
+                        console.log(td_cells[k]);
+                        maxRowHeight = Math.max(maxRowHeight, td_cells[k].offsetHeight);
+                        console.log(maxRowHeight);
+                    }
+                }
+            }
+            for (var i = 1; i < rows.length; i++) {
+                var td_cells = rows[i].getElementsByTagName('td');
+                for (var k = 0; k < td_cells.length; k++) {
+                    if ( k == th_cell_index-1 ) {
+                        // console.log(td_cells[k]);
+                        td_cells[k].style.height = maxRowHeight + 'px';
+                    }
+                }
+            }
+
+            th_cells[j].style.height = maxRowHeight + 'px';
+            // cells[j].style.height = 'auto';
+            //maxRowHeight = Math.max(maxRowHeight, cells[j].offsetHeight);
+        }
+
+
+
+    }); */
+
     window.toggleColumn = toggleColumn;
     window.selectAll = selectAll;
     window.clearAll = clearAll;
