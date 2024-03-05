@@ -29,22 +29,155 @@
 /*}*/
 
 .yufinder_container{
-    width:100%;
-
-    max-width: 90% !important;
-
+    border:1px black solid;
+    display: grid;
+    grid-template-columns: 25% 75%;
+    grid-template-rows: min-content 1fr; /* Second row spans the whole area */
+    max-width: 90%!important;
+    background: white;
 
 }
-.yufinder_platforms_container {
+
+.yufinder_header{
+    font-size: 1.5em
+}
+.yufinder_container button{
+    padding: 10px;
+    margin: 10px;
+    background-color: #E31837!important;
+    color: white!important;
+    border: solid #E31837 2px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+.yufinder_container button:hover{
+    background-color: white!important;
+    color: #E31837!important;
+
+}
+
+.yufinder_container li{
+    padding-bottom: 10px;
+}
+.yufinder_filters_container{
+    padding:7px;
+    grid-column: 1;
+    grid-row:2;
+    border-bottom: 1px solid gray;
+    overflow: auto;
+    max-height: 130vh;
+}
+.yufinder_platforms_container{
+    padding: 10px;
+    grid-column: 2;
+    grid-row:2;
+    max-height: 130vh;
+    border-bottom : 1px solid gray;
+}
+.yf_platforms_header {
+    padding-left: 10px;
+    padding-right: 13px;
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+
+
+.yufinder_platforms_cells {
     display: flex;
     flex-wrap: wrap;
+    overflow:auto;
+    align-content: flex-start;
+
+
 }
-.yufinder_platform_cell{
-    flex: 21%; /* This sets the width of each child item */
+/*styling for the platform cells*/
+.yufinder_platform_cell {
+    display:flex;
+    border-radius: 10px;
+    flex: 24%;
+    flex-grow:0;
     margin: 5px;
-    height: 100px;
+    padding: 5px;
+    min-height: 150px;
+    max-height: 30vh;
+    background-color: #F5A3AF !important;
+    overflow: auto;
+
+    border: 3px solid rgba(0,0,0,0.35);
+
+
+}
+.yufinder_platform_cell h4{
+    font-size: 1.1em;
+}
+.yufinder_platform_cell p{
+    font-size: .9em;
+}
+.yufinder_platform_cell label {
+
+}
+.yufinder_platform_cell input[type="checkbox"]{
+    position: absolute !important;
+    /*right: -9999px;*/
+    width:0px;
+    height:0px;
+    opacity: 0;
+    /*display: none !important;*/
 }
 
+
+/*.yufinder_platform_cell input[type="checkbox"]:checked{*/
+/*    background-color: #8C3A47 !important; !* Darker color when checked *!*/
+/*    !* Add any other styles you want for the checked state *!*/
+/*}*/
+
+
+/*setting styles for datable*/
+.yufinder_datafields_container{
+    grid-row:3;
+}
+
+/*
+handling size changes
+*/
+@media (max-width: 767px) {
+    /* Styles for small screens */
+    /* Adjust as needed */
+    .yufinder_platform_cell {
+        flex: 100%;
+        margin: 5px 0;
+
+    }
+}
+
+/*custom checkbox styling*/
+.yufinder_container input[type="checkbox"]{
+    /*position: relative;*/
+    /*display: inline-block;*/
+    width: 20px;
+    height: 20px;
+    background-color: white;
+    border: 2px #E31837 solid;
+    border-radius: 50%; /* Make it circular */
+
+}
+
+.yufinder_container input[type="checkbox"]:checked:after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 18px; /* Adjust the size of the circle */
+    height: 18px; /* Adjust the size of the circle */
+    background: #E31837; /* Solid red color */
+    border: none;
+    border-radius: 50%; /* Make it circular */
+    /*display: block;*/
+}
 .platforms_table {
     display: table;
 }
