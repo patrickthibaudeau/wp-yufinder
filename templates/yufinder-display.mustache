@@ -1,32 +1,52 @@
 <div class="yufinder_container">
-<table id= "yu-finder-test-id">
-  <tr>
-    <td>{{> instance-filters}}</td>
+    <span class="yufinder_header">describe your data</span>
+    <div class="yufinder_filters_container">
 
-    <td>
-    <div class="yufinder_platforms_container">
+        <span class="yufinder_filters_header">
+        Answer these questions to help identify data storage services that are
+        suitable for your needs. Checking these boxes will change the list of
+        available services.
+        If you are uncertain how to answer, leave the question blank to maximize
+         your resulting options.</span>
+        <br>
+        <button class="yufinder_reset_filters">reset filters</button>
+        {{> instance-filters}}
 
-        {{#platforms}}
-        <div class='yufinder_platform_cell'>
-            {{> instance-platforms}}
-        </div>
-        {{/platforms}}
     </div>
+    <div class="yufinder_platforms_container">
+        <div class="yf_platforms_header">
+            <div>
+                <span> Select data storage services you would like to compare.</span>
+            </div>
+            <div>
+                <button class="yf_platforms_button yf_button_selectall">select all</button>
+                <button class="yf_platforms_button yf_pf_button_reset">reset all</button>
+            </div>
+        </div>
 
-    </td>
-  </tr>
-  <tr>
-      <td colspan="2">
-      <table class="platforms_table table-striped table-bordered scrolling" id="comparisonchart">
-      <tr>
-        <td>&nbsp;</td>
-        {{> instance-platform-table-column-label}}
-      </tr>
-      {{> instance-platform-table-column-data}}
-      </table>
-
-    </td>
-  </tr>
-</table>
+        <div class="yufinder_platforms_cells">
+            {{#platforms}}
+            <div class='yufinder_platform_cell'>
+                {{> instance-platforms}}
+            </div>
+            {{/platforms}}
+        </div>
+    </div>
+    <div class="yufinder_datafields_container">
+        <table class="platforms_table table-striped table-bordered scrolling" id="comparisonchart">
+          <tr>
+            <td>&nbsp;</td>
+            {{> instance-platform-table-column-label}}
+          </tr>
+          {{> instance-platform-table-column-data}}
+          </table>
+    </div>
 </div>
+
+
+
+
+
+
+
 
