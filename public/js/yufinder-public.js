@@ -41,6 +41,7 @@
                 cell.classList.add('hidden');
             }
         });
+        // adjustColumnWidths();
     }
 
     function selectAll() {
@@ -65,6 +66,8 @@
 
     function platforms_table_layout_align () {
 
+        // console.log("function run");
+
         var table = document.getElementById('comparisonchart');
         var rows = table.getElementsByTagName('tr');
 
@@ -80,11 +83,20 @@
 
             console.log(th_cell_index);
 
+            if (th_cells[j].style.height) {
+                // If it exists, remove the 'height' style property
+                th_cells[j].style.removeProperty('height');
+            }
+
             for (var i = 1; i < rows.length; i++) {
                 var td_cells = rows[i].getElementsByTagName('td');
                 // console.log(td_cells)
                 for (var k = 0; k < td_cells.length; k++) {
                     if (k == th_cell_index-1) {
+                        if (td_cells[k].style.height) {
+                            // If it exists, remove the 'height' style property
+                            td_cells[k].style.removeProperty('height');
+                        }
                         console.log(td_cells[k]);
                         maxRowHeight = Math.max(maxRowHeight, td_cells[k].offsetHeight);
                         console.log(maxRowHeight);
@@ -106,6 +118,13 @@
             //maxRowHeight = Math.max(maxRowHeight, cells[j].offsetHeight);
         }
     }
+
+    /* function adjustColumnWidths() {
+
+        var visibleColumns = $('#comparisonchart th').filter(':visible').length;
+        var columnWidth = 100 / visibleColumns + '%';
+        $('#comparisonchart th, #comparisonchart td').css('width', columnWidth);
+    } */
 
     window.addEventListener('DOMContentLoaded', platforms_table_layout_align);
     window.addEventListener('resize', platforms_table_layout_align);
@@ -159,5 +178,6 @@
     window.toggleColumn = toggleColumn;
     window.selectAll = selectAll;
     window.clearAll = clearAll;
+    /* window.adjustColumnWidths = adjustColumnWidths; */
 
 })(jQuery);
