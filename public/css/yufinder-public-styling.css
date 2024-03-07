@@ -35,7 +35,7 @@
     grid-template-rows: min-content 1fr; /* Second row spans the whole area */
     max-width: 90%!important;
     background: white;
-
+    padding: 10px;
 }
 
 .yufinder_header{

@@ -228,15 +228,11 @@ class yufinder_Instance
         LEFT JOIN '. $data_table.' as d on p.id = d.platformid
         WHERE p.instanceid = '.$instanceid; */
 
-        $sql='SELECT p.id as pid, p.name, p.description, d.id ,d.datafieldid as dataid, d.platformid, d.value
+        $sql='SELECT p.id as pid, p.name, p.description, p.filteroptions, d.id ,d.datafieldid as dataid, d.platformid, d.value
         FROM ' . $platform_table . ' as p
         LEFT JOIN '. $data_table.' as d on p.id = d.platformid
         WHERE p.instanceid = '.$instanceid. '
         ORDER BY p.name, d.datafieldid';
-
-
-
-
 
         $platforms = $wpdb->get_results($sql, ARRAY_A);
 
@@ -251,6 +247,7 @@ class yufinder_Instance
                     "name" => $name,
                     "platformid" => $platform["pid"],
                     "description" => $platform["description"],
+                    "filteroptions" => json_decode($platform['filteroptions']),
                     "data" => []
                 ];
             }
@@ -276,7 +273,7 @@ class yufinder_Instance
         $filters = $wpdb->get_results($filter_sql, ARRAY_A);
 
 // Get the options
-        $options_sql = "SELECT id,value,filterid FROM $options_table";
+        $options_sql = "SELECT id,value,filterid, LOWER(REPLACE(value, ' ', '_')) AS shortname FROM $options_table";
         $options = $wpdb->get_results($options_sql, ARRAY_A);
 
         $options_by_filter_id = [];
