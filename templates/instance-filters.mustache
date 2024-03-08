@@ -1,31 +1,26 @@
-
-
-
-
-{{#filters}}
-        <li>
-
-         <div class='help' id='explanation-{{id}}'><h3>{{question}}</h3><p>{{{description}}}</p></div>
-        <fieldset aria-labelledby='filter-{{id}}'>
-        {{#options}}
-            <div class='checkbox' facetid='{{id}}'>
-            <label for='facet-{{id}}'>
-            <input type='checkbox' name='facet-{{id}}' id='facet-{{id}}' {{checked}} class='facet' facetid='{{id}}'> {{value}}
-            </label>
-            </div>
-        {{/options}}
-        </fieldset>
+<ul class="list-group">
+    {{#filters}}
+        <li class="list-group-item">
+            <div class='help' id='explanation-{{id}}'><h3>{{question}}</h3>
+                <p>{{{description}}}</p></div>
+            <fieldset aria-labelledby='filter-{{id}}'>
+                {{#options}}
+                    <div class='checkbox' facetid='{{id}}'>
+                        <label for='facet-{{id}}'>
+                            <input type='checkbox' data-filter_class="{{filterid}}-{{shortname}}" {{checked}} class='yufinder-filter'
+                                   facetid='{{id}}'> {{value}}
+                        </label>
+                    </div>
+                {{/options}}
+            </fieldset>
         </li>
-{{/filters}}"
+    {{/filters}}
+</ul>
 
-
-
-
-
-        <div class='filter-wrapper'>
-            <h4 id='filter-{{id}}'>{{filter}}</h4>
-             <a aria-haspopup='true' class='popup' data-hidden='true' href='#explanation-{{id}}'>
-                <span class='fa fa-info-circle' aria-hidden='true'></span>
-                <span class='sr-only'>More info about {{filter}}</span>
-            </a>
-            </div>
+<div class='filter-wrapper'>
+    <h4 id='filter-{{id}}'>{{filter}}</h4>
+    <a aria-haspopup='true' class='popup' data-hidden='true' href='#explanation-{{id}}'>
+        <span class='fa fa-info-circle' aria-hidden='true'></span>
+        <span class='sr-only'>More info about {{filter}}</span>
+    </a>
+</div>

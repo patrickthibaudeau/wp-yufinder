@@ -209,16 +209,24 @@ class yufinder {
             $this->get_plugin_name(),
             $this->get_version()
         );
+        // Add a filter
+//        $this->loader->add_filter(
+//            'the_content',
+//            $plugin_public,
+//            'add_content'
+//        );
 
-		$this->loader->add_action(
-            'wp_enqueue_styles',
-            $plugin_public,
-            'enqueue_styles'
-        );
+
 		$this->loader->add_action(
             'wp_enqueue_scripts',
             $plugin_public,
             'enqueue_scripts'
+        );
+
+        $this->loader->add_action(
+            'wp_enqueue_styles',
+            $plugin_public,
+            'enqueue_styles2'
         );
         // Add a shortcode
         $this->loader->add_action(

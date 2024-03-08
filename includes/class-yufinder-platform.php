@@ -306,7 +306,7 @@ class yufinder_Platform
                 $options[$id]['optiongroup'] = $value['question'];
 
                 $options[$id]['options'][$x]['text'] = $value['text'];
-                $options[$id]['options'][$x]['value'] = $value['value'];
+                $options[$id]['options'][$x]['value'] = $id . '-' . $value['value'];
                 // Check if value is in filter_options
                 if (!empty($filter_options) && in_array($value['value'], $filter_options)) {
                     $options[$id]['options'][$x]['selected'] = 'selected';
@@ -314,7 +314,7 @@ class yufinder_Platform
                 $x++;
             } else {
                 $options[$id]['options'][$x]['text'] = $value['text'];
-                $options[$id]['options'][$x]['value'] = $value['value'];
+                $options[$id]['options'][$x]['value'] = $value['id'] . '-' . $value['value'];
                 // Check if value is in filter_options
                 if (!empty($filter_options) && in_array($value['value'], $filter_options)) {
                     $options[$id]['options'][$x]['selected'] = 'selected';

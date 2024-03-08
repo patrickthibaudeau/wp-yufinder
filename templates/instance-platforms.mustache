@@ -1,6 +1,17 @@
+<div class="card-deck mt-2">
+    {{#columns}}
+        <div class="card bg-active yufinder_platform"
+             data-platform_classes="{{#filteroptions}}{{name}} {{/filteroptions}}"
+             data-plaform_id="{{platformid}}" id="platform-{{platformid}}">
+            <div class="card-body">
+                <input type='checkbox' data-platform_id="{{platformid}}" class='card_check_box float-right' {{checked}}/>
+                <h5 class="card-title">{{name}}</h5>
+                <p class="card-text" style="font-size: 0.8em;">
+                    {{description}}
+                </p>
+            </div>
+        </div>
+    {{/columns}}
+</div>
 
-            <label>
-            <input type='checkbox' class='cardcheckbox' {{checked}}/>
-            <div class='control-indicator'></div>
-            <h4 class='service-title'>{{name}}</h4>
-            <p>{{description}}</p>
+

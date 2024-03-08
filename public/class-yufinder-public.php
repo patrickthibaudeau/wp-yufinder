@@ -72,6 +72,7 @@ class yufinder_Public {
          * between the defined hooks and the functions defined in this
          * class.
          */
+        print_object('Hello world');
 
 
     }
@@ -94,8 +95,13 @@ class yufinder_Public {
          * between the defined hooks and the functions defined in this
          * class.
          */
-
+        wp_register_style($this->plugin_name.'_googlefont', 'https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&display=swap');
+        wp_enqueue_style( $this->plugin_name.'_googlefont' );
+        wp_enqueue_style( $this->plugin_name.'_bootstrap4.6', plugin_dir_url( __FILE__ ) . 'css/bootstrap.min.css', array(), $this->version, 'all' );
         wp_enqueue_style( $this->plugin_name.'_public', plugin_dir_url( __FILE__ ) . 'css/yufinder-public-styling.css', array(), $this->version, 'all' );
+//        wp_enqueue_style( $this->plugin_name.'_googleapis',  'https://fonts.googleapis.com', array( 'rel="preconnect"'), $this->version, 'all' );
+//        wp_enqueue_style( $this->plugin_name.'_gstatic',  'https://fonts.gstatic.com', array('rel="preconnect"', 'crossorigin'), $this->version, 'all' );
+
 
         wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/yufinder-public.js', array( 'jquery' ), $this->version, false );
  }

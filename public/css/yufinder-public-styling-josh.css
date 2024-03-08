@@ -1,0 +1,385 @@
+/**
+ * All of the CSS for your public-facing functionality should be
+ * included in this file. I AM A TEST CAUSE SOMETHING WEIRD IS HAPPENING
+ *
+ */
+
+/*#yu-finder-test-id {*/
+/*    border: 10px solid red;*/
+/*    font-size: 1px;*/
+/*}*/
+
+
+/*#yu-finder-test-id td:nth-child(2) {*/
+/*    display: flex;*/
+/*    flex-direction: column;*/
+/*}*/
+
+
+
+/*#yu-finder-test-id {*/
+/*    display: grid;*/
+/*    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));*/
+/*}*/
+
+
+/*#yu-finder-test-id {*/
+/*    display: grid;*/
+/*    grid-template-columns: repeat(4, 1fr);*/
+/*}*/
+
+.entry-content {
+    font-family: "IBM Plex Sans", sans-serif;
+    width: 95% !important;
+    max-width: 100% !important;
+    margin: 0 1% 0 1% !important;
+    padding: 0 10px !important;
+}
+/* Make default font IBM Plex */
+/*.container-fluid {*/
+/*    width: 100% !important;*/
+/*    */
+
+
+.yufinder_container{
+    font-family: "IBM Plex Sans", sans-serif;
+    font-size: 1em;
+    border:1px black solid;
+    display: grid;
+    grid-template-columns: 25% 75%;
+    grid-template-rows: min-content 1fr; /* Second row spans the whole area */
+    max-width: 90%!important;
+    background: white;
+    padding: 10px;
+
+}
+
+.yufinder_header{
+    font-size: 1.3em
+}
+.yufinder_container button{
+    padding: 10px;
+    margin: 10px;
+    background-color: #E31837!important;
+    color: white!important;
+    border: solid #E31837 2px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+.yufinder_container button:hover{
+    background-color: white!important;
+    color: #E31837!important;
+
+}
+
+h3 {
+    font-size: 0.9em !important;
+    margin: 1em 0 1em;
+}
+.yufinder_container li{
+    padding-bottom: 10px;
+}
+.yufinder_filters_container{
+    padding:7px;
+    grid-column: 1;
+    grid-row:2;
+    border-bottom: 1px solid gray;
+    overflow: auto;
+    max-height: 130vh;
+    font-size: .9rem;
+}
+.yufinder_platforms_container{
+    padding: 10px;
+    grid-column: 2;
+    grid-row:2;
+    max-height: 130vh;
+    border-bottom : 1px solid gray;
+}
+.yf_platforms_header {
+    padding-left: 10px;
+    padding-right: 13px;
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+
+
+.yufinder_platforms_cells {
+    display: flex;
+    flex-wrap: wrap;
+    overflow:auto;
+    align-content: flex-start;
+
+
+}
+/*styling for the platform cells*/
+.yufinder_platform_cell {
+    display:flex;
+    border-radius: 10px;
+    flex: 24%;
+    flex-grow:0;
+    margin: 5px;
+    padding: 5px;
+    min-height: 150px;
+    max-height: 30vh;
+    background-color: #F5A3AF !important;
+    overflow: auto;
+
+    border: 3px solid rgba(0,0,0,0.35);
+
+
+}
+.yufinder_platform_cell h4{
+    font-size: 1.1em;
+}
+.yufinder_platform_cell p{
+    font-size: .9em;
+}
+.yufinder_platform_cell label {
+
+}
+.yufinder_platform_cell input[type="checkbox"]{
+    position: absolute !important;
+    /*right: -9999px;*/
+    width:0px;
+    height:0px;
+    opacity: 0;
+    /*display: none !important;*/
+}
+
+
+/*.yufinder_platform_cell input[type="checkbox"]:checked{*/
+/*    background-color: #8C3A47 !important; !* Darker color when checked *!*/
+/*    !* Add any other styles you want for the checked state *!*/
+/*}*/
+
+
+/*setting styles for datable*/
+.yufinder_datafields_container{
+    grid-row:3;
+}
+
+/*
+handling size changes
+*/
+@media (max-width: 767px) {
+    /* Styles for small screens */
+    /* Adjust as needed */
+    .yufinder_platform_cell {
+        flex: 100%;
+        margin: 5px 0;
+
+    }
+}
+
+/*custom checkbox styling*/
+.yufinder_container input[type="checkbox"]{
+    /*position: relative;*/
+    /*display: inline-block;*/
+    width: 20px;
+    height: 20px;
+    background-color: white;
+    border: 2px #E31837 solid;
+    border-radius: 50%; /* Make it circular */
+
+}
+
+.yufinder_container input[type="checkbox"]:checked:after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 18px; /* Adjust the size of the circle */
+    height: 18px; /* Adjust the size of the circle */
+    background: #E31837; /* Solid red color */
+    border: none;
+    border-radius: 50%; /* Make it circular */
+    /*display: block;*/
+}
+
+.platforms_table {
+    display: table;
+}
+
+.platforms_table {
+    width: 100%;
+    max-width: 100%;
+    margin: 0 0 10px;
+    background-color: transparent;
+    border-collapse: collapse;
+}
+
+.table-bordered {
+    border: 1px solid #ddd;
+}
+
+.platforms_table tr {
+    display: table-cell;
+}
+.platforms_table tr td {
+    display: block;
+    /*overflow: hidden;
+    white-space: nowrap; */
+    word-wrap: break-word;
+}
+
+.platforms_table tr th {
+    display: block;
+}
+
+#comparisonchart th {
+    /* white-space: normal; */
+    background-color: #78879d;
+    /* padding: 12px; */
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+#comparisonchart tr:first-child th {
+    background: #f3f3f3;
+}
+
+#comparisonchart tr:not(:first-child) th {
+    color: #fff;
+}
+
+#comparisonchart tr:first-child td:first-child {
+    /* white-space: normal; */
+    background-color: #78879d;
+    /* padding: 12px; */
+}
+
+.table-bordered>tbody>tr>td, .table-bordered>tbody>tr>th {
+    border: 1px solid #ddd;
+}
+
+.table-striped>tbody>tr>td:nth-of-type(odd) {
+    background-color: #f9f9f9;
+}
+
+.table-striped>tbody>tr>td:nth-of-type(even) {
+    background-color: #f1efef;
+}
+
+
+/* -- start -- */
+
+
+
+/* -- end -- */
+
+
+.platforms_compare_checklist {
+    display: flex;
+}
+.btn-checkbox {
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
+    margin-right: 10px;
+    font-family: Arial, sans-serif;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    padding: 5px 10px;
+    background-color: lightgray;
+}
+.btn-checkbox input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+}
+.checkmark {
+    position: absolute;
+    right: 5px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    border: 1px solid #ccc;
+    background-color: #333; /* Dark gray background */
+}
+.checkmark:after {
+    content: "";
+    position: absolute;
+    display: none;
+    left: 5px;
+    top: 2px;
+    width: 5px;
+    height: 10px;
+    border: solid white; /* White tick */
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+}
+.btn-checkbox input:checked ~ .checkmark:after {
+    display: block;
+}
+.btn-checkbox-label {
+    display: inline-block;
+    vertical-align: middle;
+    padding-right: 30px;
+
+}
+.hidden {
+    display: none !important;
+}
+
+.step3-button-container {
+    margin-bottom: 10px;
+}
+
+.select-all-btn {
+    background-color: white !important;
+    border: 2px solid green;
+    border-radius: 5px;
+    padding: 5px 10px;
+    font-weight: 500;
+    cursor: pointer;
+    color: black !important;
+}
+
+.clear-all-btn {
+    background-color: white !important;
+    border: 2px solid darkred;
+    border-radius: 5px;
+    padding: 5px 10px;
+    font-weight: 500;
+    cursor: pointer;
+    color: black !important;
+}
+
+h2.sub-heading {
+    font-size: 24px;
+    margin: 1em 0 1em;
+}
+
+
+/* .platforms_table.scrolling > tr > th {
+    border: 0;
+    border-left: 1px solid #ccc;
+}
+
+ */
+
+/* .platform_table tr td p {
+    display: inline-block !important;
+} */
+
+/* .row {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    width: 100%;
+}
+
+.column {
+    display: flex;
+    flex-direction: column;
+    flex-basis: 100%;
+    flex: 1;
+} */
+

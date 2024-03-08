@@ -185,12 +185,13 @@ class yufinder_Instance
         $instance = $wpdb->get_row($sql, ARRAY_A);
         $instance['filters'] = $this->get_filters($this->id);
         $instance['platforms']= $this->get_platforms($this->id);
-
         $instance['data_fields']= $this->get_data_fields($this->id);
-        // $instance['platform_table_title']= $this->get_platform_table_title_desc($this->id);
-        // $instance['platform_table_desc']= $this->get_platform_table_title_desc($this->id);
-        // $instance['platform_table_data']= $this->get_platform_table_data($this->id);
+        // Set platform table data
+        $instance['platform_table_data'] = $instance['platforms']['table_data'];
+        // Remove table data from platforms
+        unset($instance['platforms']['table_data']);
 
+// print_object($instance);
         return $instance;
     }
 
@@ -216,18 +217,6 @@ class yufinder_Instance
         $platform_table = $wpdb->prefix . 'yufinder_platform';
         $data_table = $wpdb->prefix. 'yufinder_platform_data';
         //get platforms
-;
-//        $sql= 'Select p.id as pid, p.name, p.description, d.id as dataid, d.platformid, d.value
-//        From ' . $platform_table . ' as p
-//        Left Join '. $data_table.' as d on p.id = d.platformid
-//        Where p.instanceid = '.$instanceid;
-
-
-        /* $sql='SELECT p.id as pid, p.name, p.description, d.id ,d.datafieldid as dataid, d.platformid, d.value
-        FROM ' . $platform_table . ' as p
-        LEFT JOIN '. $data_table.' as d on p.id = d.platformid
-        WHERE p.instanceid = '.$instanceid; */
-
         $sql='SELECT p.id as pid, p.name, p.description, p.filteroptions, d.id ,d.datafieldid as dataid, d.platformid, d.value
         FROM ' . $platform_table . ' as p
         LEFT JOIN '. $data_table.' as d on p.id = d.platformid
@@ -237,29 +226,49 @@ class yufinder_Instance
         $platforms = $wpdb->get_results($sql, ARRAY_A);
 
         // return $platforms;
-        // print_object($platforms);
-//
+//         print_object($platforms);
+
         $data = [];
         foreach($platforms as $platform){
+            $filter_options = json_decode($platform['filteroptions']);
+            $filter_option_data = [];
+            foreach($filter_options as $key => $option){
+                $filter_option_data[$key]['name'] = $option;
+            }
             $name = $platform["name"];
             if (!isset($data[$name])) {
                 $data[$name] = [
                     "name" => $name,
                     "platformid" => $platform["pid"],
                     "description" => $platform["description"],
-                    "filteroptions" => json_decode($platform['filteroptions']),
+                    "filteroptions" => $filter_option_data,
                     "data" => []
                 ];
             }
             $data[$name]["data"][] = ["dataid" => $platform["dataid"], "value" => $platform["value"]];
         }
-        $platforms=[];
-        $i=0;
-        foreach($data as $platform){
-            $platforms[$i]=$platform;
-           $i++;
-        }
+        // Count number of platforms returned
+        $number_of_platforms = count($data);
+        $number_of_columns = 4;
+        $number_of_rows = ceil($number_of_platforms / $number_of_columns);
 
+        $platforms=[];
+        // Prepare data for table
+        $i = 0;
+        foreach($data as $platform){
+            $platforms['table_data'][$i]=$platform;
+            $i++;
+        }
+        // loop through the data and create a new array with the correct number of columns nased on the number of rows
+        $row = 0;
+        $i = 0;
+        foreach ($data as $platform) {
+            $platforms[$row]['columns'][] = $platform;
+            $i++;
+            if ($i % $number_of_columns == 0) {
+                $row++;
+            }
+        }
         return $platforms;
 
     }
@@ -286,9 +295,6 @@ class yufinder_Instance
             $filter['options'] = $options_by_filter_id[$filter['id']] ?? [];
         }
         unset($filter); // Unset reference to last element
-
-
-
 
         return $filters;
     }
