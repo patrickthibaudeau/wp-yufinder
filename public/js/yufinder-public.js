@@ -3,16 +3,16 @@
 
     $(document).ready(function () {
         // Add active class to the current button (highlight it)
-        $('.card_check_box').on('click', function () {
-            $('.card_check_box').each(function () {
-                var platform_id = $(this).data('platform_id');
-                if ($(this).is(':checked')) {
-                    $('#platform-' + platform_id).addClass('bg-active').removeClass('bg-disabled');
-                } else {
-                    $('#platform-' + platform_id).removeClass('bg-active').addClass('bg-disabled');
-                }
-            });
-        });
+        // $('.card_check_box').on('click', function () {
+        //     $('.card_check_box').each(function () {
+        //         var platform_id = $(this).data('platform_id');
+        //         if ($(this).is(':checked')) {
+        //             $('#platform-' + platform_id).addClass('bg-active').removeClass('bg-disabled');
+        //         } else {
+        //             $('#platform-' + platform_id).removeClass('bg-active').addClass('bg-disabled');
+        //         }
+        //     });
+        // });
 
         // Reset platforms
         $('#btn-yufinder-reset-plaforms').on('click', function () {

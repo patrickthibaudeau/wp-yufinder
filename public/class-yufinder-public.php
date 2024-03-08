@@ -99,8 +99,6 @@ class yufinder_Public {
         wp_enqueue_style( $this->plugin_name.'_googlefont' );
         wp_enqueue_style( $this->plugin_name.'_bootstrap4.6', plugin_dir_url( __FILE__ ) . 'css/bootstrap.min.css', array(), $this->version, 'all' );
         wp_enqueue_style( $this->plugin_name.'_public', plugin_dir_url( __FILE__ ) . 'css/yufinder-public-styling.css', array(), $this->version, 'all' );
-//        wp_enqueue_style( $this->plugin_name.'_googleapis',  'https://fonts.googleapis.com', array( 'rel="preconnect"'), $this->version, 'all' );
-//        wp_enqueue_style( $this->plugin_name.'_gstatic',  'https://fonts.gstatic.com', array('rel="preconnect"', 'crossorigin'), $this->version, 'all' );
 
 
         wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/yufinder-public.js', array( 'jquery' ), $this->version, false );
