@@ -59,7 +59,7 @@ h3 {
 }
 
 
-input[type="checkbox"] {
+.yufinder_platform input[type="checkbox"] {
     -webkit-appearance: none;
     -moz-appearance: none;
     appearance: none;
@@ -70,7 +70,7 @@ input[type="checkbox"] {
     cursor: pointer;
 }
 
-input[type="checkbox"]:before {
+.yufinder_platform input[type="checkbox"]:before {
     content: "";
     display: block;
     width: 16px;
@@ -79,7 +79,7 @@ input[type="checkbox"]:before {
     border: 2px solid ;
 }
 
-input[type="checkbox"]:checked:before {
+.yufinder_platform input[type="checkbox"]:checked:before {
     background: #555;
 }
 
