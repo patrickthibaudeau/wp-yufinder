@@ -50,21 +50,21 @@
             </div>
         </div>
     </div>
-    <div class="row">
+    <div id="yufinder-table-container" class="row" style="display: none;">
         <div class="col">
             <div class="yufinder_datafields_container">
                 <div class="step3-button-container">
                     <h3 class="sub-heading">Step 3: Compare providers: Explore the details of the providers you have
                         chosen</h3>
-                    <button class="select-all-btn" onclick="selectAll()">Select All</button>
-                    <button class="clear-all-btn " onclick="clearAll()">Clear All</button>
+                    <button id="btn-yufinder-comparison-select-all" class="btn btn-outline-primary btn-sm">Select All</button>
+                    <button id="btn-yufinder-comparisonclear-all" class="btn btn-outline-primary btn-sm">Clear All</button>
                 </div>
-                <div class="platforms_compare_checklist">
+                <div class="">
                     {{> instance-platform-table-compare-checklist}}
 
                 </div>
-                <div class="table-response">
-                    <table class="platforms_table table table-sm table-striped table-bordered" id="comparisonchart">
+                <div id="yufinder-comparison-table-container" class="table-responsive" style="display: none;">
+                    <table class="table table-sm table-striped table-bordered" id="comparisonchart">
                         <tr>
                             <td>&nbsp;</td>
                             {{> instance-platform-table-column-label}}

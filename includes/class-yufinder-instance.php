@@ -186,6 +186,7 @@ class yufinder_Instance
         $instance['filters'] = $this->get_filters($this->id);
         $instance['platforms']= $this->get_platforms($this->id);
         $instance['data_fields']= $this->get_data_fields($this->id);
+        $instance['platform_table_filter_buttons'] = $this->get_platform_filter_buttons($this->id);
         // Set platform table data
         $instance['platform_table_data'] = $instance['platforms']['table_data'];
         // Remove table data from platforms
@@ -247,10 +248,6 @@ class yufinder_Instance
             }
             $data[$name]["data"][] = ["dataid" => $platform["dataid"], "value" => $platform["value"]];
         }
-        // Count number of platforms returned
-        $number_of_platforms = count($data);
-        $number_of_columns = 4;
-        $number_of_rows = ceil($number_of_platforms / $number_of_columns);
 
         $platforms=[];
         // Prepare data for table
@@ -260,6 +257,8 @@ class yufinder_Instance
             $i++;
         }
         // loop through the data and create a new array with the correct number of columns nased on the number of rows
+        // number of columns for display
+        $number_of_columns = 4;
         $row = 0;
         $i = 0;
         foreach ($data as $platform) {
@@ -272,6 +271,37 @@ class yufinder_Instance
         return $platforms;
 
     }
+
+    /**
+     * get instance filters
+     * @param $instanceid int id for instance
+     * @return array of filters with options
+     */
+    private function get_platform_filter_buttons($instanceid)
+    {
+        global $wpdb;
+        $platform_table = $wpdb->prefix . 'yufinder_platform';
+        $sql = "SELECT id as platformid, name FROM $platform_table WHERE instanceid = $instanceid ORDER BY name ASC";
+        $platforms = $wpdb->get_results($sql, ARRAY_A);
+        $data = [];
+        $number_of_columns = 10;
+        $row = 0;
+        $i = 0;
+        foreach ($platforms as $platform) {
+            $data[$row]['buttons'][] = $platform;
+            $i++;
+            if ($i % $number_of_columns == 0) {
+                $row++;
+            }
+        }
+        return $data;
+    }
+
+    /**
+     * get instance filters
+     * @param $instanceid int id for instance
+     * @return array of filters with options
+     */
     private function get_filters($instanceid){
         global $wpdb;
         $filter_table = $wpdb->prefix . 'yufinder_filter';

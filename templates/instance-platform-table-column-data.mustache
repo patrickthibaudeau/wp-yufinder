@@ -1,15 +1,10 @@
 {{#platform_table_data}}
-
-             <tr>
-             <th class="platform platform-{{platformid}}" scope="col">{{name}}</th>
-
-             {{#data}}
-                  <td class="platform platform-{{platformid}}" data-label="{{name}}">
-                       <p style="display: inline-block;">{{value}}</p>
-                   </td>
-             {{/data}}
-
-             </tr>
-
-
- {{/platform_table_data}}
+    <tr class="tr-platform-{{platformid}}" style="display: none;">
+        <th class="platform platform-{{platformid}}" scope="col">{{name}}</th>
+        {{#data}}
+            <td class="platform platform-{{platformid}} yufinder-platform-data-cell" data-label="{{name}}">
+                {{value}}
+            </td>
+        {{/data}}
+    </tr>
+{{/platform_table_data}}

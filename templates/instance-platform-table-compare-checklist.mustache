@@ -1,9 +1,16 @@
-{{#platform_table_data}}
-
-    <label class="btn-checkbox" id="platform-{{platformid}}-btn">
-        <input type="checkbox" onclick="toggleColumn('platform-{{platformid}}')" checked>
-        <span class="btn-checkbox-label">{{name}}</span>
-        <span class="checkmark"></span>
-    </label>
-
-{{/platform_table_data}}
+{{#platform_table_filter_buttons}}
+    <div class="row mb-2">
+        <div class="col d-flex  align-items-center justify-content-center">
+            {{#buttons}}
+                <button
+                        id="btn-yufinder-comparison-checkbox-{{platformid}}"
+                        class="btn btn-secondary btn-sm comparison-checkbox h-100 mr-2"
+                        style="font-size: 0.5rem; display: none;"
+                        data-platform_id="{{platformid}}"
+                >
+                    {{name}}
+                </button>
+            {{/buttons}}
+        </div>
+    </div>
+{{/platform_table_filter_buttons}}

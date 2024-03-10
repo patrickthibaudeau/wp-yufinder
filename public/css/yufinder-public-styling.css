@@ -83,31 +83,17 @@ h3 {
     background: #555;
 }
 
-.platforms_table {
-    width: 100%;
-    max-width: 100%;
-    margin: 0 0 10px;
-    background-color: transparent;
-    border-collapse: collapse;
-}
+
 
 .table-bordered {
     border: 1px solid #ddd;
 }
 
-.platforms_table tr {
-    display: table-cell;
-}
-.platforms_table tr td {
-    display: block;
-    /*overflow: hidden;
-    white-space: nowrap; */
-    word-wrap: break-word;
+table td.yufinder-platform-data-cell {
+    font-size: 0.6rem !important;
+    width: 300px !important;
 }
 
-.platforms_table tr th {
-    display: block;
-}
 
 #comparisonchart th {
     /* white-space: normal; */

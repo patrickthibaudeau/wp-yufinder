@@ -3,16 +3,58 @@
 
     $(document).ready(function () {
         // Add active class to the current button (highlight it)
-        // $('.card_check_box').on('click', function () {
-        //     $('.card_check_box').each(function () {
-        //         var platform_id = $(this).data('platform_id');
-        //         if ($(this).is(':checked')) {
-        //             $('#platform-' + platform_id).addClass('bg-active').removeClass('bg-disabled');
-        //         } else {
-        //             $('#platform-' + platform_id).removeClass('bg-active').addClass('bg-disabled');
-        //         }
-        //     });
-        // });
+        $('.card_check_box').on('click', function () {
+
+            // Check if checked or not
+            var checked = $(this).is(':checked');
+            var this_platform_id = $(this).data('platform_id');
+            if (checked) {
+                // Make yufinder-table-conatiner visible
+                $('#yufinder-table-container').show();
+                // make btn-yufinder-comparison-checkbox-{{plaformid}} checked
+                $('#btn-yufinder-comparison-checkbox-' + this_platform_id).addClass('checked').addClass('btn-success').removeClass('btn-secondary');
+                // Show btn-yufinder-comparison-checkbox-{{plaformid}}
+                $('#btn-yufinder-comparison-checkbox-' + this_platform_id).show();
+                // Show the table
+                $('#yufinder-comparison-table-container').show();
+                // Show table row for this platform
+                $('.tr-platform-' + this_platform_id).show();
+            } else {
+                // Hide the table row for this platform
+                $('.tr-platform-' + this_platform_id).hide();
+                //Remove success from the comparison checkbox
+                $('#btn-yufinder-comparison-checkbox-' + this_platform_id).removeClass('btn-success').removeClass('checked').addClass('btn-secondary');
+                // Hide btn-yufinder-comparision-checkbox-{{platformid}}
+                $('#btn-yufinder-comparison-checkbox-' + this_platform_id).hide();
+                // If no platform is checked, hide the comparison table
+                var all_checked = false;
+                $('.comparison-checkbox').each(function () {
+                    if ($(this).hasClass('checked')) {
+                        all_checked = true;
+                        return
+                    }
+                });
+
+                if (!all_checked) {
+                    $('#yufinder-comparison-table-container').hide();
+                }
+
+                // if this is the only card_check_box taht is cheked, hide the yufinder-table-container
+                var all_unchecked = true;
+                $('.card_check_box').each(function () {
+                    if ($(this).is(':checked')) {
+                        all_unchecked = false;
+                        return
+                    }
+                });
+
+                if (all_unchecked) {
+                    $('#yufinder-table-container').hide();
+                }
+            }
+
+
+        });
 
         // Reset platforms
         $('#btn-yufinder-reset-plaforms').on('click', function () {
@@ -20,6 +62,32 @@
                 $(this).prop('checked', false);
                 var platform_id = $(this).data('platform_id');
                 $('#platform-' + platform_id).removeClass('bg-disabled').addClass('bg-active');
+                $(this).trigger('change');
+                // If no platform is checked, hide the comparison table
+                var all_checked = false;
+                $('.comparison-checkbox').each(function () {
+                    if ($(this).hasClass('checked')) {
+                        all_checked = true;
+                        return
+                    }
+                });
+
+                if (!all_checked) {
+                    $('#yufinder-comparison-table-container').hide();
+                }
+
+                // if this is the only card_check_box taht is cheked, hide the yufinder-table-container
+                var all_unchecked = true;
+                $('.card_check_box').each(function () {
+                    if ($(this).is(':checked')) {
+                        all_unchecked = false;
+                        return
+                    }
+                });
+
+                if (all_unchecked) {
+                    $('#yufinder-table-container').hide();
+                }
             });
         });
 
@@ -29,6 +97,7 @@
                 $(this).prop('checked', true);
                 var platform_id = $(this).data('platform_id');
                 $('#platform-' + platform_id).addClass('bg-active').removeClass('bg-disabled');
+                $(this).trigger('change');
             });
         });
 
@@ -71,137 +140,34 @@
             });
         });
 
-
-    });
-    $('.btn-checkbox, .btn-checkbox input, .btn-checkbox span').on('click', function () {
-        console.log("here button check 2");
-        /* $('.card_check_box').each(function () {
-            $(this).prop('checked', true);
+        // When checkbox with class comparison-checkbox is clicked, check if it is checked or not
+        // Get the dat-platform_id attibute and use it to show or hide the tr-platform-<platform_id> table row
+        $('.comparison-checkbox').on('click', function () {
             var platform_id = $(this).data('platform_id');
-            $('#platform-' + platform_id).addClass('bg-active').removeClass('bg-disabled');
-        }); */
-        // var id = $(this).attr('id');
-        var id = $(this).attr('id').replace('-btn', '');
-        console.log($(this));
-        console.log(id);
-        var cells = document.getElementsByClassName(id);
-        // var cells = document.getElementsByClassName('platform-1');
-        // Convert HTMLCollection to an array
-        var cellsArray = Array.from(cells);
-
-        console.log(cellsArray);
-
-        cellsArray.forEach(function(cell) {
-            if (cell.classList.contains('hidden')) {
-                cell.classList.remove('hidden');
+            var checked = $(this).hasClass('checked');
+            if (checked) {
+                $('.tr-platform-' + platform_id).hide();
+                $(this).removeClass('btn-success').removeClass('checked').addClass('btn-secondary');
             } else {
-                cell.classList.add('hidden');
+                $('.tr-platform-' + platform_id).show();
+                $('#yufinder-comparison-table-container').show();
+                $(this).removeClass('btn-secondary').addClass('btn-success').addClass('checked');
+            }
+
+            // Loop through all .comparison-checkbox. If none have class checked, hide the comparison table
+            var all_checked = false;
+            $('.comparison-checkbox').each(function () {
+                if ($(this).hasClass('checked')) {
+                    all_checked = true;
+                    return
+                }
+            });
+
+            if (!all_checked) {
+                $('#yufinder-comparison-table-container').hide();
             }
         });
 
-        console.log("here done");
-
     });
 
-
-});
-
-function platforms_table_layout_align () {
-
-    // console.log("function run");
-
-    var table = document.getElementById('comparisonchart');
-    var rows = table.getElementsByTagName('tr');
-
-    var th_cells = rows[0].getElementsByTagName('th');
-
-    for (var j = 0; j < th_cells.length; j++) {
-
-        var maxRowHeight = 0;
-
-        console.log(th_cells[j]);
-
-        var th_cell_index = th_cells[j].cellIndex;
-
-        console.log(th_cell_index);
-
-        if (th_cells[j].style.height) {
-            // If it exists, remove the 'height' style property
-            th_cells[j].style.removeProperty('height');
-        }
-
-        for (var i = 1; i < rows.length; i++) {
-            var td_cells = rows[i].getElementsByTagName('td');
-            // console.log(td_cells)
-            for (var k = 0; k < td_cells.length; k++) {
-                if (k == th_cell_index-1) {
-                    if (td_cells[k].style.height) {
-                        // If it exists, remove the 'height' style property
-                        td_cells[k].style.removeProperty('height');
-                    }
-                    console.log(td_cells[k]);
-                    maxRowHeight = Math.max(maxRowHeight, td_cells[k].offsetHeight);
-                    console.log(maxRowHeight);
-                }
-            }
-        }
-        for (var i = 1; i < rows.length; i++) {
-            var td_cells = rows[i].getElementsByTagName('td');
-            for (var k = 0; k < td_cells.length; k++) {
-                if ( k == th_cell_index-1 ) {
-                    // console.log(td_cells[k]);
-                    td_cells[k].style.height = maxRowHeight + 'px';
-                }
-            }
-        }
-
-        th_cells[j].style.height = maxRowHeight + 'px';
-        // cells[j].style.height = 'auto';
-        //maxRowHeight = Math.max(maxRowHeight, cells[j].offsetHeight);
-    }
-}
-
-window.addEventListener('DOMContentLoaded', platforms_table_layout_align);
-window.addEventListener('resize', platforms_table_layout_align);
-
-// Th JS below has nothing to do with the above JS
-
-function toggleColumn(id) {
-    console.log("here in toggle");
-    var cells = document.getElementsByClassName(id);
-    // Convert HTMLCollection to an array
-    var cellsArray = Array.from(cells);
-
-    cellsArray.forEach(function (cell) {
-        if (cell.classList.contains('hidden')) {
-            cell.classList.remove('hidden');
-        } else {
-            cell.classList.add('hidden');
-        }
-    });
-}
-
-function selectAll() {
-    var checkboxes = document.querySelectorAll('.btn-checkbox input[type="checkbox"]');
-    checkboxes.forEach(function (checkbox) {
-        if (!checkbox.checked) {
-            checkbox.checked = true;
-            checkbox.dispatchEvent(new Event('click')); // Dispatch a click event on the checkbox
-        }
-    });
-}
-
-function clearAll() {
-    var checkboxes = document.querySelectorAll('.btn-checkbox input[type="checkbox"]');
-    checkboxes.forEach(function (checkbox) {
-        if (checkbox.checked) {
-            checkbox.checked = false;
-            checkbox.dispatchEvent(new Event('click')); // Dispatch a click event on the checkbox
-        }
-    });
-}
-
-window.toggleColumn = toggleColumn;
-window.selectAll = selectAll;
-window.clearAll = clearAll;
 })(jQuery);
