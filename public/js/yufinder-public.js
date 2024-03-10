@@ -73,45 +73,135 @@
 
 
     });
-
-    // Th JS below has nothing to do with the above JS
-
-    function toggleColumn(id) {
+    $('.btn-checkbox, .btn-checkbox input, .btn-checkbox span').on('click', function () {
+        console.log("here button check 2");
+        /* $('.card_check_box').each(function () {
+            $(this).prop('checked', true);
+            var platform_id = $(this).data('platform_id');
+            $('#platform-' + platform_id).addClass('bg-active').removeClass('bg-disabled');
+        }); */
+        // var id = $(this).attr('id');
+        var id = $(this).attr('id').replace('-btn', '');
+        console.log($(this));
+        console.log(id);
         var cells = document.getElementsByClassName(id);
+        // var cells = document.getElementsByClassName('platform-1');
         // Convert HTMLCollection to an array
         var cellsArray = Array.from(cells);
 
-        cellsArray.forEach(function (cell) {
+        console.log(cellsArray);
+
+        cellsArray.forEach(function(cell) {
             if (cell.classList.contains('hidden')) {
                 cell.classList.remove('hidden');
             } else {
                 cell.classList.add('hidden');
             }
         });
-    }
 
-    function selectAll() {
-        var checkboxes = document.querySelectorAll('.btn-checkbox input[type="checkbox"]');
-        checkboxes.forEach(function (checkbox) {
-            if (!checkbox.checked) {
-                checkbox.checked = true;
-                checkbox.dispatchEvent(new Event('click')); // Dispatch a click event on the checkbox
+        console.log("here done");
+
+    });
+
+
+});
+
+function platforms_table_layout_align () {
+
+    // console.log("function run");
+
+    var table = document.getElementById('comparisonchart');
+    var rows = table.getElementsByTagName('tr');
+
+    var th_cells = rows[0].getElementsByTagName('th');
+
+    for (var j = 0; j < th_cells.length; j++) {
+
+        var maxRowHeight = 0;
+
+        console.log(th_cells[j]);
+
+        var th_cell_index = th_cells[j].cellIndex;
+
+        console.log(th_cell_index);
+
+        if (th_cells[j].style.height) {
+            // If it exists, remove the 'height' style property
+            th_cells[j].style.removeProperty('height');
+        }
+
+        for (var i = 1; i < rows.length; i++) {
+            var td_cells = rows[i].getElementsByTagName('td');
+            // console.log(td_cells)
+            for (var k = 0; k < td_cells.length; k++) {
+                if (k == th_cell_index-1) {
+                    if (td_cells[k].style.height) {
+                        // If it exists, remove the 'height' style property
+                        td_cells[k].style.removeProperty('height');
+                    }
+                    console.log(td_cells[k]);
+                    maxRowHeight = Math.max(maxRowHeight, td_cells[k].offsetHeight);
+                    console.log(maxRowHeight);
+                }
             }
-        });
-    }
-
-    function clearAll() {
-        var checkboxes = document.querySelectorAll('.btn-checkbox input[type="checkbox"]');
-        checkboxes.forEach(function (checkbox) {
-            if (checkbox.checked) {
-                checkbox.checked = false;
-                checkbox.dispatchEvent(new Event('click')); // Dispatch a click event on the checkbox
+        }
+        for (var i = 1; i < rows.length; i++) {
+            var td_cells = rows[i].getElementsByTagName('td');
+            for (var k = 0; k < td_cells.length; k++) {
+                if ( k == th_cell_index-1 ) {
+                    // console.log(td_cells[k]);
+                    td_cells[k].style.height = maxRowHeight + 'px';
+                }
             }
-        });
+        }
+
+        th_cells[j].style.height = maxRowHeight + 'px';
+        // cells[j].style.height = 'auto';
+        //maxRowHeight = Math.max(maxRowHeight, cells[j].offsetHeight);
     }
+}
 
-    window.toggleColumn = toggleColumn;
-    window.selectAll = selectAll;
-    window.clearAll = clearAll;
+window.addEventListener('DOMContentLoaded', platforms_table_layout_align);
+window.addEventListener('resize', platforms_table_layout_align);
 
+// Th JS below has nothing to do with the above JS
+
+function toggleColumn(id) {
+    console.log("here in toggle");
+    var cells = document.getElementsByClassName(id);
+    // Convert HTMLCollection to an array
+    var cellsArray = Array.from(cells);
+
+    cellsArray.forEach(function (cell) {
+        if (cell.classList.contains('hidden')) {
+            cell.classList.remove('hidden');
+        } else {
+            cell.classList.add('hidden');
+        }
+    });
+}
+
+function selectAll() {
+    var checkboxes = document.querySelectorAll('.btn-checkbox input[type="checkbox"]');
+    checkboxes.forEach(function (checkbox) {
+        if (!checkbox.checked) {
+            checkbox.checked = true;
+            checkbox.dispatchEvent(new Event('click')); // Dispatch a click event on the checkbox
+        }
+    });
+}
+
+function clearAll() {
+    var checkboxes = document.querySelectorAll('.btn-checkbox input[type="checkbox"]');
+    checkboxes.forEach(function (checkbox) {
+        if (checkbox.checked) {
+            checkbox.checked = false;
+            checkbox.dispatchEvent(new Event('click')); // Dispatch a click event on the checkbox
+        }
+    });
+}
+
+window.toggleColumn = toggleColumn;
+window.selectAll = selectAll;
+window.clearAll = clearAll;
 })(jQuery);

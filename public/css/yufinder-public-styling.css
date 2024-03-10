@@ -83,3 +83,142 @@ h3 {
     background: #555;
 }
 
+.platforms_table {
+    width: 100%;
+    max-width: 100%;
+    margin: 0 0 10px;
+    background-color: transparent;
+    border-collapse: collapse;
+}
+
+.table-bordered {
+    border: 1px solid #ddd;
+}
+
+.platforms_table tr {
+    display: table-cell;
+}
+.platforms_table tr td {
+    display: block;
+    /*overflow: hidden;
+    white-space: nowrap; */
+    word-wrap: break-word;
+}
+
+.platforms_table tr th {
+    display: block;
+}
+
+#comparisonchart th {
+    /* white-space: normal; */
+    background-color: #78879d;
+    /* padding: 12px; */
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+#comparisonchart tr:first-child th {
+    background: #f3f3f3;
+}
+
+#comparisonchart tr:not(:first-child) th {
+    color: #fff;
+}
+
+#comparisonchart tr:first-child td:first-child {
+    /* white-space: normal; */
+    background-color: #78879d;
+    /* padding: 12px; */
+}
+
+.table-bordered>tbody>tr>td, .table-bordered>tbody>tr>th {
+    border: 1px solid #ddd;
+}
+
+.table-striped>tbody>tr>td:nth-of-type(odd) {
+    background-color: #f9f9f9;
+}
+
+.table-striped>tbody>tr>td:nth-of-type(even) {
+    background-color: #f1efef;
+}
+
+.platforms_compare_checklist {
+    display: flex;
+}
+.btn-checkbox {
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
+    margin-right: 10px;
+    font-family: Arial, sans-serif;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    padding: 5px 10px;
+    background-color: lightgray;
+}
+.btn-checkbox input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+}
+.checkmark {
+    position: absolute;
+    right: 5px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    border: 1px solid #ccc;
+    background-color: #333; /* Dark gray background */
+}
+.checkmark:after {
+    content: "";
+    position: absolute;
+    display: none;
+    left: 5px;
+    top: 2px;
+    width: 5px;
+    height: 10px;
+    border: solid white; /* White tick */
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+}
+.btn-checkbox input:checked ~ .checkmark:after {
+    display: block;
+}
+.btn-checkbox-label {
+    display: inline-block;
+    vertical-align: middle;
+    padding-right: 30px;
+
+}
+.hidden {
+    display: none !important;
+}
+
+.step3-button-container {
+    margin-bottom: 10px;
+}
+
+.select-all-btn {
+    background-color: white !important;
+    border: 2px solid green;
+    border-radius: 5px;
+    padding: 5px 10px;
+    font-weight: 500;
+    cursor: pointer;
+    color: black !important;
+}
+
+.clear-all-btn {
+    background-color: white !important;
+    border: 2px solid darkred;
+    border-radius: 5px;
+    padding: 5px 10px;
+    font-weight: 500;
+    cursor: pointer;
+    color: black !important;
+}
