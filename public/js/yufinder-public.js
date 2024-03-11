@@ -135,6 +135,9 @@
                     $(this).removeClass('bg-active').addClass('bg-disabled');
                     let checkbox = $(this).find('.card_check_box');
                     $(checkbox).prop('checked', false);
+                    // Remove from comparison table and filter
+                    $('.td-platform-' + $(checkbox).data('platform_id')).hide();
+                    $('#btn-yufinder-comparison-checkbox-' + $(checkbox).data('platform_id')).hide();
                 }
             });
         });
