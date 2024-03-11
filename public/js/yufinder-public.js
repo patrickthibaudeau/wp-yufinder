@@ -7,6 +7,9 @@
         var filter_classes = [];
         var filter_classes_radio = [];
 
+        // reset all
+        reset_all();
+
         // Add active class to the current button (highlight it)
         $('.card_check_box').on('click', function () {
             // Check if checked or not
@@ -58,32 +61,7 @@
 
         // Reset platforms
         $('.btn-yufinder-reset').on('click', function () {
-            $('.card_check_box').each(function () {
-                $(this).prop('checked', false);
-                var platform_id = $(this).data('platform_id');
-                $('#platform-' + platform_id).removeClass('bg-disabled').addClass('bg-active');
-                $('.td-platform-' + platform_id).hide();
-                $(this).trigger('change');
-
-                $('.comparison-checkbox').each(function () {
-                    // remove success from the comparison checkbox
-                    $(this).removeClass('btn-success').removeClass('checked').addClass('btn-secondary');
-                    $(this).hide();
-                });
-
-                $('#yufinder-comparison-table-container').hide();
-
-                // if this is the only card_check_box taht is cheked, hide the yufinder-table-container
-                $('.card_check_box').each(function () {
-                    $(this).prop('checked', false);
-                });
-
-                $('#yufinder-table-container').hide();
-            });
-            // Reset filters
-            $('.yufinder-filter').each(function () {
-                $(this).prop('checked', false);
-            });
+            reset_all();
         });
 
         // Select all platforms
@@ -199,6 +177,36 @@
                 $('#yufinder-comparison-table-container').hide();
             }
         });
+
+        // Reset all
+        function reset_all() {
+            $('.card_check_box').each(function () {
+                $(this).prop('checked', false);
+                var platform_id = $(this).data('platform_id');
+                $('#platform-' + platform_id).removeClass('bg-disabled').addClass('bg-active');
+                $('.td-platform-' + platform_id).hide();
+                $(this).trigger('change');
+
+                $('.comparison-checkbox').each(function () {
+                    // remove success from the comparison checkbox
+                    $(this).removeClass('btn-success').removeClass('checked').addClass('btn-secondary');
+                    $(this).hide();
+                });
+
+                $('#yufinder-comparison-table-container').hide();
+
+                // if this is the only card_check_box taht is cheked, hide the yufinder-table-container
+                $('.card_check_box').each(function () {
+                    $(this).prop('checked', false);
+                });
+
+                $('#yufinder-table-container').hide();
+            });
+            // Reset filters
+            $('.yufinder-filter').each(function () {
+                $(this).prop('checked', false);
+            });
+        }
 
     });
 
