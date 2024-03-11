@@ -46,8 +46,8 @@ class yufinder_Instance
         // Set class property
         if ($id > 0) {
             $this->options = $wpdb->get_row(
-                    'SELECT * FROM ' . $wpdb->prefix . 'yufinder_instance WHERE id = ' . $id,
-                    ARRAY_A
+                'SELECT * FROM ' . $wpdb->prefix . 'yufinder_instance WHERE id = ' . $id,
+                ARRAY_A
             );
         } else {
             $this->options = array('id' => 0, 'name' => '', 'shortname' => '');
@@ -57,7 +57,7 @@ class yufinder_Instance
         ?>
         <div class="wrap">
             <h1>Edit instance</h1>
-            <form method="post" action="<?php echo $path?>">
+            <form method="post" action="<?php echo $path ?>">
                 <?php
                 // This prints out all hidden setting fields
                 settings_fields('my_option_group');
@@ -177,27 +177,33 @@ class yufinder_Instance
      * @param $instanceid
      * @return array|object|null
      */
-    public function get_data_tree() {
+    public function get_data_tree()
+    {
         global $wpdb;
         $table = $wpdb->prefix . 'yufinder_instance';
 //        $platform
         $sql = "SELECT * FROM $table WHERE id = $this->id";
         $instance = $wpdb->get_row($sql, ARRAY_A);
         $instance['filters'] = $this->get_filters($this->id);
-        $instance['platforms']= $this->get_platforms($this->id);
-        $instance['data_fields']= $this->get_data_fields($this->id);
+        $instance['platforms'] = $this->get_platforms($this->id);
+        $instance['data_fields'] = $this->get_data_fields($this->id);
         $instance['platform_table_filter_buttons'] = $this->get_platform_filter_buttons($this->id);
         // Set platform table data
         $instance['platform_table_data'] = $instance['platforms']['table_data'];
         // Remove table data from platforms
         unset($instance['platforms']['table_data']);
+// Set platform table row data
+        $instance['platform_table_row_data'] = $instance['platforms']['table_row_data'];
+        // Remove table data from platforms
+        unset($instance['platforms']['table_row_data']);
 
-// print_object($instance['filters']);
+// print_object($instance['platform_table_row_data']);
         return $instance;
     }
 
 
-    private function get_data_fields($instanceid){
+    private function get_data_fields($instanceid)
+    {
         global $wpdb;
         $datafields_table = $wpdb->prefix . 'yufinder_data_fields';
 
@@ -213,15 +219,16 @@ class yufinder_Instance
      * @param $instanceid int id for instance
      * @return array of platforms with data
      */
-    private function get_platforms($instanceid){
+    private function get_platforms($instanceid)
+    {
         global $wpdb;
         $platform_table = $wpdb->prefix . 'yufinder_platform';
-        $data_table = $wpdb->prefix. 'yufinder_platform_data';
+        $data_table = $wpdb->prefix . 'yufinder_platform_data';
         //get platforms
-        $sql='SELECT p.id as pid, p.name, p.description, p.filteroptions, d.id ,d.datafieldid as dataid, d.platformid, d.value
+        $sql = 'SELECT p.id as pid, p.name, p.description, p.filteroptions, d.id ,d.datafieldid as dataid, d.platformid, d.value
         FROM ' . $platform_table . ' as p
-        LEFT JOIN '. $data_table.' as d on p.id = d.platformid
-        WHERE p.instanceid = '.$instanceid. '
+        LEFT JOIN ' . $data_table . ' as d on p.id = d.platformid
+        WHERE p.instanceid = ' . $instanceid . '
         ORDER BY p.name, d.datafieldid';
 
         $platforms = $wpdb->get_results($sql, ARRAY_A);
@@ -230,7 +237,7 @@ class yufinder_Instance
 //         print_object($platforms);
 
         $data = [];
-        foreach($platforms as $platform){
+        foreach ($platforms as $platform) {
             $filter_options = json_decode($platform['filteroptions']);
             $filter_option_data = [];
             if (!empty($filter_options)) {
@@ -251,13 +258,42 @@ class yufinder_Instance
             }
         }
 
-        $platforms=[];
+        $platforms = [];
         // Prepare data for table
         $i = 0;
-        foreach($data as $platform){
-            $platforms['table_data'][$i]=$platform;
+        foreach ($data as $platform) {
+            $platforms['table_data'][$i] = $platform;
             $i++;
         }
+
+        // Prepare table column data
+        $data_fields = $this->get_data_fields($instanceid);
+        $table_data = [];
+        $i = 0;
+
+        $data_row = 0;
+        foreach ($data_fields as $data_field) {
+            $x = 0;
+            $table_data[$i]['rows'][$x]['text'] = $data_field['name'];
+            $table_data[$i]['rows'][$x]['platform_id'] = '';
+            $table_data[$i]['rows'][$x]['hide'] = false;
+            $x++;
+
+            foreach ($data as $platform) {
+                if (isset($platform['data'][$data_row])) {
+                    $table_data[$i]['rows'][$x]['text'] = $platform['data'][$data_row]['value'];
+                    $table_data[$i]['rows'][$x]['platform_id'] = $platform['platformid'];
+                    $table_data[$i]['rows'][$x]['platform_name'] = $platform['name'];
+                    $table_data[$i]['rows'][$x]['hide'] = true;
+                    $x++;
+                }
+            }
+            $data_row++;
+            $i++;
+        }
+
+        $platforms['table_row_data'] = $table_data;
+
         // loop through the data and create a new array with the correct number of columns nased on the number of rows
         // number of columns for display
         $number_of_columns = 4;
@@ -279,7 +315,8 @@ class yufinder_Instance
      * @param $instanceid int id for instance
      * @return array of filters with options
      */
-    private function get_platform_filter_buttons($instanceid)
+    private
+    function get_platform_filter_buttons($instanceid)
     {
         global $wpdb;
         $platform_table = $wpdb->prefix . 'yufinder_platform';
@@ -304,7 +341,9 @@ class yufinder_Instance
      * @param $instanceid int id for instance
      * @return array of filters with options
      */
-    private function get_filters($instanceid){
+    private
+    function get_filters($instanceid)
+    {
         global $wpdb;
         $filter_table = $wpdb->prefix . 'yufinder_filter';
         $options_table = $wpdb->prefix . 'yufinder_filter_options';
@@ -331,7 +370,9 @@ class yufinder_Instance
         return $filters;
     }
 
-    private function get_platform_table_data($instanceid){
+    private
+    function get_platform_table_data($instanceid)
+    {
         global $wpdb;
         $datafields_table = $wpdb->prefix . 'yufinder_data_fields';
         $platformdata_table = $wpdb->prefix . 'yufinder_platform_data';
@@ -356,12 +397,12 @@ class yufinder_Instance
         unset($datafield); // Unset reference to last element
 
 
-
-
         return $datafields;
     }
 
-    private function get_platform_table_title_desc($instanceid){
+    private
+    function get_platform_table_title_desc($instanceid)
+    {
         global $wpdb;
         $table = $wpdb->prefix . 'yufinder_platform';
 

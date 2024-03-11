@@ -1,0 +1,33 @@
+<div id="yufinder-comparison-table-container" class="table-responsive" style="display: none;">
+    <table class="table table-sm table-striped table-bordered">
+        <tr>
+            <th></th>
+            {{#platform_table_data}}
+                <th class="platform td-platform-{{platformid}} " style="display: none; width: 200px;">
+                    {{name}}
+                </th>
+            {{/platform_table_data}}
+        </tr>
+        {{#platform_table_row_data}}
+            <tr>
+                {{#rows}}
+                    <td class="platform td-platform-{{platform_id}} yufinder-platform-data-cell"
+                        data-label="{{text}}"
+                        {{#hide}}
+                        style="display: none;"
+                        {{/hide}}>
+                        {{^hide}}
+                        <b>
+                        {{/hide}}
+                        {{text}}
+                        {{^hide}}
+                        </b>
+                        {{/hide}}
+                    </td>
+                {{/rows}}
+            </tr>
+        {{/platform_table_row_data}}
+    </table>
+</div>
+
+

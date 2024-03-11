@@ -2,9 +2,11 @@
     'use strict';
 
     $(document).ready(function () {
+
         //defining filter arrays
         var filter_classes = [];
         var filter_classes_radio = [];
+
         // Add active class to the current button (highlight it)
         $('.card_check_box').on('click', function () {
             // Check if checked or not
@@ -20,10 +22,10 @@
                 // Show the table
                 $('#yufinder-comparison-table-container').show();
                 // Show table row for this platform
-                $('.tr-platform-' + this_platform_id).show();
+                $('.td-platform-' + this_platform_id).show();
             } else {
                 // Hide the table row for this platform
-                $('.tr-platform-' + this_platform_id).hide();
+                $('.td-platform-' + this_platform_id).hide();
                 //Remove success from the comparison checkbox
                 $('#btn-yufinder-comparison-checkbox-' + this_platform_id).removeClass('btn-success').removeClass('checked').addClass('btn-secondary');
                 // Hide btn-yufinder-comparision-checkbox-{{platformid}}
@@ -52,8 +54,6 @@
                     $('#yufinder-table-container').hide();
                 }
             }
-
-
         });
 
         // Reset platforms
@@ -62,7 +62,7 @@
                 $(this).prop('checked', false);
                 var platform_id = $(this).data('platform_id');
                 $('#platform-' + platform_id).removeClass('bg-disabled').addClass('bg-active');
-                $('.tr-platform-' + platform_id).hide();
+                $('.td-platform-' + platform_id).hide();
                 $(this).trigger('change');
 
                 $('.comparison-checkbox').each(function () {
@@ -93,7 +93,7 @@
                 if ($('#platform-' + platform_id).hasClass('bg-active')) {
                     $(this).prop('checked', true);
                     $('#platform-' + platform_id).addClass('bg-active').removeClass('bg-disabled');
-                    $('.tr-platform-' + platform_id).show();
+                    $('.td-platform-' + platform_id).show();
                     $(this).trigger('change');
 
                     $('.comparison-checkbox').each(function () {
@@ -178,10 +178,10 @@
             var platform_id = $(this).data('platform_id');
             var checked = $(this).hasClass('checked');
             if (checked) {
-                $('.tr-platform-' + platform_id).hide();
+                $('.td-platform-' + platform_id).hide();
                 $(this).removeClass('btn-success').removeClass('checked').addClass('btn-secondary');
             } else {
-                $('.tr-platform-' + platform_id).show();
+                $('.td-platform-' + platform_id).show();
                 $('#yufinder-comparison-table-container').show();
                 $(this).removeClass('btn-secondary').addClass('btn-success').addClass('checked');
             }

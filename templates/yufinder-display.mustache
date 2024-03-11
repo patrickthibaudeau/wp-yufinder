@@ -15,7 +15,9 @@
                         If you are uncertain how to answer, leave the question blank to maximize
                         your resulting options.
                     </div>
-                    <button id="btn-yufinder-reset-filters" class="btn btn-primary btn-sm mb-1 btn-yufinder-reset">Reset filters</button>
+                    <button id="btn-yufinder-reset-filters" class="btn btn-primary btn-sm mb-1 btn-yufinder-reset">Reset
+                        filters
+                    </button>
                     {{> instance-filters}}
 
                 </div>
@@ -29,8 +31,12 @@
                             <span> Select data storage services you would like to compare.</span>
                         </div>
                         <div class="float-right">
-                            <button id="btn-yufinder-select-all" class="btn btn-primary btn-sm yf_button_selectall">Select all</button>
-                            <button id="btn-yufinder-reset-plaforms" class="btn btn-primary btn-sm btn-yufinder-reset">Reset all</button>
+                            <button id="btn-yufinder-select-all" class="btn btn-primary btn-sm yf_button_selectall">
+                                Select all
+                            </button>
+                            <button id="btn-yufinder-reset-plaforms" class="btn btn-primary btn-sm btn-yufinder-reset">
+                                Reset all
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -56,22 +62,13 @@
                 <div class="step3-button-container">
                     <h3 class="sub-heading">Step 3: Compare providers: Explore the details of the providers you have
                         chosen</h3>
-<!--                    <button id="btn-yufinder-comparison-select-all" class="btn btn-outline-primary btn-sm">Select All</button>-->
-<!--                    <button id="btn-yufinder-comparisonclear-all" class="btn btn-outline-primary btn-sm">Clear All</button>-->
+                    <!--                    <button id="btn-yufinder-comparison-select-all" class="btn btn-outline-primary btn-sm">Select All</button>-->
+                    <!--                    <button id="btn-yufinder-comparisonclear-all" class="btn btn-outline-primary btn-sm">Clear All</button>-->
                 </div>
                 <div class="">
                     {{> instance-platform-table-compare-checklist}}
-
                 </div>
-                <div id="yufinder-comparison-table-container" class="table-responsive" style="display: none;">
-                    <table class="table table-sm table-striped table-bordered" id="comparisonchart">
-                        <tr>
-                            <td>&nbsp;</td>
-                            {{> instance-platform-table-column-label}}
-                        </tr>
-                        {{> instance-platform-table-column-data}}
-                    </table>
-                </div>
+                {{> instance-comparison-table}}
             </div>
         </div>
     </div>

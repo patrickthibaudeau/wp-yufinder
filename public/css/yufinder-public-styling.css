@@ -59,6 +59,16 @@ h3 {
     pointer-events: none;
 }
 
+/* Fix table width issue */
+.table {
+    table-layout: fixed;
+    word-wrap: break-word;
+}
+
+th, td {
+    width: 250px !important;
+}
+
 
 .yufinder_platform input[type="checkbox"] {
     -webkit-appearance: none;
