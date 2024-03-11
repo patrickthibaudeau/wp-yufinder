@@ -233,20 +233,22 @@ class yufinder_Instance
         foreach($platforms as $platform){
             $filter_options = json_decode($platform['filteroptions']);
             $filter_option_data = [];
-            foreach($filter_options as $key => $option){
-                $filter_option_data[$key]['name'] = $option;
+            if (!empty($filter_options)) {
+                foreach ($filter_options as $key => $option) {
+                    $filter_option_data[$key]['name'] = $option;
+                }
+                $name = $platform["name"];
+                if (!isset($data[$name])) {
+                    $data[$name] = [
+                        "name" => $name,
+                        "platformid" => $platform["pid"],
+                        "description" => $platform["description"],
+                        "filteroptions" => $filter_option_data,
+                        "data" => []
+                    ];
+                }
+                $data[$name]["data"][] = ["dataid" => $platform["dataid"], "value" => $platform["value"]];
             }
-            $name = $platform["name"];
-            if (!isset($data[$name])) {
-                $data[$name] = [
-                    "name" => $name,
-                    "platformid" => $platform["pid"],
-                    "description" => $platform["description"],
-                    "filteroptions" => $filter_option_data,
-                    "data" => []
-                ];
-            }
-            $data[$name]["data"][] = ["dataid" => $platform["dataid"], "value" => $platform["value"]];
         }
 
         $platforms=[];

@@ -73,7 +73,7 @@ if ($action == 'edit') {
             $params = [
                 'platformid' => $id,
                 'datafieldid' => $data_field_id,
-                'value' => $value,
+                'value' => str_replace('\\\\', '\\', $value),
                 'usermodified' => get_current_user_id(),
                 'timemodified' => time()
             ];
@@ -90,7 +90,7 @@ if ($action == 'edit') {
                 $wpdb->insert(
                     $data_table,
                     $params,
-                    array( '%d', '%d', '%s', '%d', '%d')
+                    array( '%d', '%d', '%s', '%d', '%d', '%d')
                 );
             }
         }
