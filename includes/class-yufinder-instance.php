@@ -192,7 +192,7 @@ class yufinder_Instance
         // Remove table data from platforms
         unset($instance['platforms']['table_data']);
 
-// print_object($instance);
+// print_object($instance['filters']);
         return $instance;
     }
 

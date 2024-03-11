@@ -112,7 +112,6 @@ class yufinder_Instance_Table extends WP_List_Table
         // Add sorting order
         $orderby = !empty($_GET["orderby"]) ? $_GET["orderby"] : 'name';
         $order = !empty($_GET["order"]) ? $_GET["order"] : 'asc';
-;
         if (!empty($orderby) && !empty($order)) {
             $sql .= ' ORDER BY ' . $orderby . ' ' . $order;
         }

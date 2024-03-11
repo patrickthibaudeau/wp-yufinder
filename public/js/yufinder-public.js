@@ -2,6 +2,9 @@
     'use strict';
 
     $(document).ready(function () {
+        //defining filter arrays
+        var filter_classes = [];
+        var filter_classes_radio = [];
         // Add active class to the current button (highlight it)
         $('.card_check_box').on('click', function () {
 
@@ -31,7 +34,7 @@
                 $('.comparison-checkbox').each(function () {
                     if ($(this).hasClass('checked')) {
                         all_checked = true;
-                        return
+
                     }
                 });
 
@@ -44,7 +47,7 @@
                 $('.card_check_box').each(function () {
                     if ($(this).is(':checked')) {
                         all_unchecked = false;
-                        return
+
                     }
                 });
 
@@ -68,7 +71,7 @@
                 $('.comparison-checkbox').each(function () {
                     if ($(this).hasClass('checked')) {
                         all_checked = true;
-                        return
+
                     }
                 });
 
@@ -81,7 +84,7 @@
                 $('.card_check_box').each(function () {
                     if ($(this).is(':checked')) {
                         all_unchecked = false;
-                        return
+
                     }
                 });
 
@@ -106,12 +109,29 @@
         $('.yufinder-filter').on('click', function () {
             var filter_class = $(this).data('filter_class');
             var filter_id = $(this).data('filter_id');
+            var filter_type = $(this).prop('type');
             var filter = $(this);
             var checked = filter.is(':checked');
+            //get parent filter id
+            var radiopointer = $($(this).closest('fieldset')).prop('id');
+
             // If filter is checked addfilter_class the the filter_classes array
-            var filter_classes = [];
-            if (checked) {
-                filter_classes.push(filter_class);
+            if(filter_type == 'radio') {
+                //make a key value pair with the filter
+                    filter_classes_radio[radiopointer] = filter_class;
+
+
+            }else {
+
+                if (checked) {
+                    filter_classes.push(filter_class);
+                } else {//remove unchecked filter
+                    let index = filter_classes.indexOf(filter_class);
+                    if (index > -1) {
+                        filter_classes.splice(index, 1);
+                    }
+
+                }
             }
 
             // Now go through all platforms
@@ -121,10 +141,24 @@
                     return platform_classes.indexOf(val) >= 0;
                 });
 
-                if (has_all_filters) {
-                    $(this).addClass('bg-active').removeClass('bg-disable');
+                let radio_filters =true;
+                for (var key in filter_classes_radio) {
+                    if(platform_classes.indexOf(filter_classes_radio[key]) === -1){
+                        radio_filters=false;
+                        break;
+                    }
+                }
+
+
+
+                if (has_all_filters && radio_filters) {
+                    $(this).addClass('bg-active').removeClass('yufinder_disabled');
+
                 } else {
-                    $(this).removeClass('bg-active').addClass('bg-disable');
+                    $(this).removeClass('bg-active').addClass('yufinder_disabled');
+                    let checkbox = $(this).find('.card_check_box');
+                    $(checkbox).prop('checked', false);
+
                 }
             });
         });
@@ -159,7 +193,7 @@
             $('.comparison-checkbox').each(function () {
                 if ($(this).hasClass('checked')) {
                     all_checked = true;
-                    return
+
                 }
             });
 

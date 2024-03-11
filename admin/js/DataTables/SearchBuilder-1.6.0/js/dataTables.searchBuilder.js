@@ -1612,7 +1612,7 @@ var DataTable = $.fn.dataTable;
                 },
                 init: Criteria.initNoValue,
                 inputValue: function () {
-                    return;
+
                 },
                 isInputValid: function () {
                     return true;
@@ -1628,7 +1628,7 @@ var DataTable = $.fn.dataTable;
                 },
                 init: Criteria.initNoValue,
                 inputValue: function () {
-                    return;
+
                 },
                 isInputValid: function () {
                     return true;
@@ -1735,7 +1735,7 @@ var DataTable = $.fn.dataTable;
                 },
                 init: Criteria.initNoValue,
                 inputValue: function () {
-                    return;
+
                 },
                 isInputValid: function () {
                     return true;
@@ -1751,7 +1751,7 @@ var DataTable = $.fn.dataTable;
                 },
                 init: Criteria.initNoValue,
                 inputValue: function () {
-                    return;
+
                 },
                 isInputValid: function () {
                     return true;
@@ -1860,7 +1860,7 @@ var DataTable = $.fn.dataTable;
                 },
                 init: Criteria.initNoValue,
                 inputValue: function () {
-                    return;
+
                 },
                 isInputValid: function () {
                     return true;
@@ -1876,7 +1876,7 @@ var DataTable = $.fn.dataTable;
                 },
                 init: Criteria.initNoValue,
                 inputValue: function () {
-                    return;
+
                 },
                 isInputValid: function () {
                     return true;
@@ -1998,7 +1998,7 @@ var DataTable = $.fn.dataTable;
                 },
                 init: Criteria.initNoValue,
                 inputValue: function () {
-                    return;
+
                 },
                 isInputValid: function () {
                     return true;
@@ -2014,7 +2014,7 @@ var DataTable = $.fn.dataTable;
                 },
                 init: Criteria.initNoValue,
                 inputValue: function () {
-                    return;
+
                 },
                 isInputValid: function () {
                     return true;
@@ -2142,7 +2142,7 @@ var DataTable = $.fn.dataTable;
                 },
                 init: Criteria.initNoValue,
                 inputValue: function () {
-                    return;
+
                 },
                 isInputValid: function () {
                     return true;
@@ -2158,7 +2158,7 @@ var DataTable = $.fn.dataTable;
                 },
                 init: Criteria.initNoValue,
                 inputValue: function () {
-                    return;
+
                 },
                 isInputValid: function () {
                     return true;
@@ -2272,7 +2272,7 @@ var DataTable = $.fn.dataTable;
                 },
                 init: Criteria.initNoValue,
                 inputValue: function () {
-                    return;
+
                 },
                 isInputValid: function () {
                     return true;
@@ -2288,7 +2288,7 @@ var DataTable = $.fn.dataTable;
                 },
                 init: Criteria.initNoValue,
                 inputValue: function () {
-                    return;
+
                 },
                 isInputValid: function () {
                     return true;
@@ -2370,7 +2370,7 @@ var DataTable = $.fn.dataTable;
                 },
                 init: Criteria.initNoValue,
                 inputValue: function () {
-                    return;
+
                 },
                 isInputValid: function () {
                     return true;
@@ -2386,7 +2386,7 @@ var DataTable = $.fn.dataTable;
                 },
                 init: Criteria.initNoValue,
                 inputValue: function () {
-                    return;
+
                 },
                 isInputValid: function () {
                     return true;
@@ -2904,7 +2904,7 @@ var DataTable = $.fn.dataTable;
                 var crit = _a[_i];
                 // If the criteria is not complete then skip it
                 if (crit.criteria instanceof Criteria && !crit.criteria.s.filled) {
-                    continue;
+
                 }
                 // Otherwise if a single one fails return false
                 else if (!crit.criteria.search(rowData, rowIdx)) {

@@ -62,7 +62,6 @@ if ($action == 'edit') {
     $data = $_REQUEST['data'];
 
     foreach ($data as $key => $value) {
-        ;
         if ((strpos($key, '_platform_data_id') !== false) || (strpos($key, '_data_field_id') !== false)) {
            continue;
         } else {

@@ -3,7 +3,9 @@
         <li class="list-group-item">
             <div class='help' id='explanation-{{id}}'><h3>{{question}}</h3>
                 <p>{{{description}}}</p></div>
-            <fieldset aria-labelledby='filter-{{id}}'>
+            <fieldset aria-labelledby='filter-{{id}}' id='filter-{{id}}'>
+
+            {{#type}}
                 {{#options}}
                     <div class='checkbox' facetid='{{id}}'>
                         <label for='facet-{{id}}'>
@@ -12,6 +14,17 @@
                         </label>
                     </div>
                 {{/options}}
+            {{/type}}
+            {{^type}}
+                {{#options}}
+                    <div class='radio' facetid='{{id}}'>
+                        <label for='facet-{{id}}'>
+                            <input type='radio' name='filter-{{filterid}}' data-filter_class="{{filterid}}-{{shortname}}" {{checked}} class='yufinder-filter'
+                                   facetid='{{id}}'> {{value}}
+                        </label>
+                    </div>
+                {{/options}}
+            {{/type}}
             </fieldset>
         </li>
     {{/filters}}

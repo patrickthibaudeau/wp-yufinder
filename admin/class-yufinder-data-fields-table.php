@@ -122,7 +122,7 @@ class yufinder_Data_Fields_Table extends WP_List_Table
         $sql .= " WHERE instanceid = " . $this->instanceid;
         // Add sorting order
         $orderby = !empty($_GET["orderby"]) ? $_GET["orderby"] : 'name';
-        $order = !empty($_GET["order"]) ? $_GET["order"] : 'asc';;
+        $order = !empty($_GET["order"]) ? $_GET["order"] : 'asc';
         if (!empty($orderby) && !empty($order)) {
             $sql .= ' ORDER BY ' . $orderby . ' ' . $order;
         }

@@ -608,7 +608,7 @@ var DataTable = $.fn.dataTable;
                     (!this.c.saveState.paging && keys[0][i] === 'page')) {
                     keys[0].splice(i, 1);
                     i--;
-                    continue;
+
                 }
             }
             for (var i = 0; i < keys[1].length; i++) {
@@ -623,7 +623,7 @@ var DataTable = $.fn.dataTable;
                     (!this.c.saveState.paging && keys[0][i] === 'page')) {
                     keys[1].splice(i, 1);
                     i--;
-                    continue;
+
                 }
             }
             if (keys[0].length === 0 && keys[1].length > 0 ||
