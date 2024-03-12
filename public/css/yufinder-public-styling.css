@@ -37,6 +37,10 @@
     font-size: 16px;
 }
 
+.container {
+    max-width: 100% !important;
+}
+
 /* Override WordPress defaults */
 @media only screen and (min-width: 1168px) {
     .entry .entry-content > *, .entry .entry-summary > *, .entry .entry-summary > .wp-block-group > .wp-block-group__inner-container > *, .entry .entry-content > .wp-block-group > .wp-block-group__inner-container > * {
@@ -94,14 +98,11 @@ th, td {
     background: #555;
 }
 
-
-
 .table-bordered {
     border: 1px solid #ddd;
 }
 
 table td.yufinder-platform-data-cell {
-    font-size: 0.6rem !important;
     width: 300px !important;
 }
 
