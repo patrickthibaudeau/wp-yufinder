@@ -145,6 +145,15 @@ class yufinder_Platforms_Table extends WP_List_Table
                             . $value['id'] . '&instanceid=' . $value['instanceid'],
                         'label' => 'Delete',
                         'title' => 'Delete',
+                        'separator' => ' | '
+                    ],
+                    [
+                        'action' => 'duplicate',
+                        'url' => plugin_dir_url(dirname(__FILE__))
+                            . 'admin/edit_platform.php?action=duplicate&id='
+                            . $value['id'] . '&instanceid=' . $value['instanceid'],
+                        'label' => 'Duplicate',
+                        'title' => 'Duplicate',
                         'separator' => ''
                     ]
                 ],

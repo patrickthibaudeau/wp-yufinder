@@ -95,10 +95,52 @@ if ($action == 'edit') {
             }
         }
     }
-} else {
+}
+if ($action == 'delete') {
     // Delete platform data
     $wpdb->delete($data_table, array('platformid' => $id));
     $wpdb->delete($table, array('id' => $id));
 }
+
+if ($action== 'duplicate') {
+    // Get platform data
+    $platform = $wpdb->get_row("SELECT * FROM $table WHERE id = $id", ARRAY_A);
+    // Duplicate platform
+    $wpdb->insert(
+        $table,
+        [
+            'instanceid' => $platform['instanceid'],
+            'name' => $platform['name'] . ' (copy)',
+            'description' => $platform['description'],
+            'filteroptions' => $platform['filteroptions'],
+            'usermodified' => get_current_user_id(),
+            'timemodified' => time(),
+            'timecreated' => time()
+        ],
+        array('%d', '%s', '%s', '%s', '%d', '%d', '%d')
+    );
+    $new_id = $wpdb->insert_id;
+    // Duplicate platform data
+    $platform_data = $wpdb->get_results("SELECT * FROM $data_table WHERE platformid = $id", ARRAY_A);
+    foreach ($platform_data as $data) {
+        $wpdb->insert(
+            $data_table,
+            [
+                'platformid' => $new_id,
+                'datafieldid' => $data['datafieldid'],
+                'value' => $data['value'],
+                'usermodified' => get_current_user_id(),
+                'timemodified' => time(),
+                'timecreated' => time()
+            ],
+            array('%d', '%d', '%s', '%d', '%d', '%d')
+        );
+    }
+
+
+
+}
+
+
 
 wp_redirect(admin_url('admin.php?page=yufinder-view-platforms&instanceid=' . $_REQUEST['instanceid']));
