@@ -1,16 +1,25 @@
-{{#platform_table_filter_buttons}}
-    <div class="row mb-2">
-        <div class="col d-flex  align-items-center justify-content-center">
-            {{#buttons}}
-                <button
-                        id="btn-yufinder-comparison-checkbox-{{platformid}}"
-                        class="btn btn-secondary btn-sm comparison-checkbox h-100 mr-2"
-                        style="display: none;"
-                        data-platform_id="{{platformid}}"
-                >
-                    {{name}}
-                </button>
-            {{/buttons}}
+<div class="row">
+    <div class="col-md-2">
+        <div class="col d-flex justify-content-bottom">
+            <button id="yufinder-export-to-csv" class="btn btn-primary btn-sm">Export to CSV</button>
         </div>
     </div>
-{{/platform_table_filter_buttons}}
+    <div class="col-md-10">
+        {{#platform_table_filter_buttons}}
+            <div class="row mb-2">
+                <div class="col d-flex align-items-center justify-content-center">
+                    {{#buttons}}
+                        <button
+                                id="btn-yufinder-comparison-checkbox-{{platformid}}"
+                                class="btn btn-secondary btn-sm comparison-checkbox h-100 mr-2"
+                                style="display: none;"
+                                data-platform_id="{{platformid}}"
+                        >
+                            {{name}}
+                        </button>
+                    {{/buttons}}
+                </div>
+            </div>
+        {{/platform_table_filter_buttons}}
+    </div>
+</div>

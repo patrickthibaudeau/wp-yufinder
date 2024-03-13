@@ -26,9 +26,11 @@
                 $('#yufinder-comparison-table-container').show();
                 // Show table row for this platform
                 $('.td-platform-' + this_platform_id).show();
+                $('.td-platform-' + this_platform_id).removeClass('ignore');
             } else {
                 // Hide the table row for this platform
                 $('.td-platform-' + this_platform_id).hide();
+                $('.td-platform-' + this_platform_id).addClass('ignore');
                 //Remove success from the comparison checkbox
                 $('#btn-yufinder-comparison-checkbox-' + this_platform_id).removeClass('btn-success').removeClass('checked').addClass('btn-secondary');
                 // Hide btn-yufinder-comparision-checkbox-{{platformid}}
@@ -72,6 +74,7 @@
                     $(this).prop('checked', true);
                     $('#platform-' + platform_id).addClass('bg-active').removeClass('bg-disabled');
                     $('.td-platform-' + platform_id).show();
+                    $('.td-platform-' + platform_id).removeClass('ignore');
                     $(this).trigger('change');
 
                     $('.comparison-checkbox').each(function () {
@@ -137,6 +140,7 @@
                     $(checkbox).prop('checked', false);
                     // Remove from comparison table and filter
                     $('.td-platform-' + $(checkbox).data('platform_id')).hide();
+                    $('.td-platform-' + $(checkbox).data('platform_id')).addClass('ignore');
                     $('#btn-yufinder-comparison-checkbox-' + $(checkbox).data('platform_id')).hide();
                 }
             });
@@ -159,10 +163,10 @@
             var platform_id = $(this).data('platform_id');
             var checked = $(this).hasClass('checked');
             if (checked) {
-                $('.td-platform-' + platform_id).hide();
+                $('.td-platform-' + platform_id).hide().addClass('ignore');
                 $(this).removeClass('btn-success').removeClass('checked').addClass('btn-secondary');
             } else {
-                $('.td-platform-' + platform_id).show();
+                $('.td-platform-' + platform_id).show().removeClass('ignore');
                 $('#yufinder-comparison-table-container').show();
                 $(this).removeClass('btn-secondary').addClass('btn-success').addClass('checked');
             }
@@ -187,7 +191,7 @@
                 $(this).prop('checked', false);
                 var platform_id = $(this).data('platform_id');
                 $('#platform-' + platform_id).removeClass('bg-disabled').addClass('bg-active');
-                $('.td-platform-' + platform_id).hide();
+                $('.td-platform-' + platform_id).hide().addClass('ignore');
                 $(this).trigger('change');
 
                 $('.comparison-checkbox').each(function () {
@@ -210,6 +214,20 @@
                 $(this).prop('checked', false);
             });
         }
+
+        // Export to CSV
+        $('#yufinder-export-to-csv').on('click', function () {
+            $("#yufinder-comparison-table").tableHTMLExport({
+
+                // csv, txt, json, pdf
+                type:'csv',
+
+                // file name
+                filename:'comparison.csv',
+
+                ignoreColumns: '.ignore'
+            });
+        });
 
     });
 

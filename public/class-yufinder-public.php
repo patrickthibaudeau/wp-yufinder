@@ -101,6 +101,7 @@ class yufinder_Public {
         wp_enqueue_style( $this->plugin_name.'_public', plugin_dir_url( __FILE__ ) . 'css/yufinder-public-styling.css', array(), $this->version, 'all' );
 
 
+        wp_enqueue_script( $this->plugin_name. '_table_export', plugin_dir_url( __FILE__ ) . 'js/tableHTMLExport.js', array( 'jquery' ), $this->version, false );
         wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/yufinder-public.js', array( 'jquery' ), $this->version, false );
  }
 
