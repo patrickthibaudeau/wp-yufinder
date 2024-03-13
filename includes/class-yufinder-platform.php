@@ -178,11 +178,12 @@ class yufinder_Platform
         );
 
         add_settings_field(
-            'description',
-            'Description',
-            array($this, 'description_callback'),
+            'short_description',
+            'Short Description',
+            array($this, 'short_description_callback'),
             'yufinder-edit-platform',
-            'setting_section_id'
+            'setting_section_id',
+
         );
 
         add_settings_field(
@@ -277,11 +278,12 @@ class yufinder_Platform
     /**
      * Get the settings option array and print one of its values
      */
-    public function description_callback()
+    public function short_description_callback()
     {
-        $html = '<textarea id="description" name="description" rows="5" class="question-textarea">';
+        $html = '<textarea id="short_description" name="short_description" rows="5" class="question-textarea">';
         $html .= isset($this->options['description']) ? esc_attr($this->options['description']) : '';
         $html .= '</textarea>';
+        $html .= '<p>Characters remaining: <span id="short_description_characters">125</span></p>';
         print(
             $html
         );

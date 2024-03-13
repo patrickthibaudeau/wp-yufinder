@@ -35,7 +35,7 @@ if ($action == 'edit') {
     $params = [
         'instanceid' => $_REQUEST['instanceid'],
         'name' => $_REQUEST['name'],
-        'description' => $_REQUEST['description'],
+        'description' => $_REQUEST['short_description'],
         'filteroptions' => $filteroptions,
         'usermodified' => get_current_user_id(),
         'timemodified' => time()

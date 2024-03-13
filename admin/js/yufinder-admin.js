@@ -28,9 +28,17 @@
 	 * Although scripts in the WordPress core, Plugins and Themes may be
 	 * practising this, we should strive to set a better example in our own work.
 	 */
-
+	$(document).ready(function(){
+		// Control number of characters in short description
+		$('#short_description').keyup(function(e) {
+			var tval = $('#short_description').val(),
+				tlength = tval.length,
+				set = 125,
+				remain = parseInt(set - tlength);
+			$('#short_description_characters').text(remain);
+			if (remain <= 0 && e.which !== 0 && e.charCode !== 0) {
+				$('#short_description').val((tval).substring(0, tlength - 1))
+			}
+		})
+	});
 })( jQuery );
-
-jQuery(document).ready(function() {
-	jQuery('#yufinder-instance-table').DataTable();
-});
