@@ -33,6 +33,15 @@ class yufinder_Data_Fields_Table extends WP_List_Table
             echo '<a href="admin.php?page=yufinder-edit-data-field&instanceid=' . $this->instanceid . '" class="page-title-action">Add New</a>';
             echo '<hr class="wp-header-end">';
 
+            // Add search form
+            ?>
+            <form method="get">
+                <input type="hidden" name="page" value="<?php echo esc_attr($_REQUEST['page']); ?>" />
+                <input type="hidden" name="instanceid" value="<?php echo esc_attr($this->instanceid); ?>" /> <!-- Add instanceid parameter -->
+                <?php $this->search_box('Search', 'search_id'); ?>
+            </form>
+            <?php
+
         }
         if ($which == "bottom") {
             //The code that goes after the table is there
@@ -81,7 +90,11 @@ class yufinder_Data_Fields_Table extends WP_List_Table
         $hidden = $this->get_hidden_columns();
         $sortable = $this->get_sortable_columns();
 
-        $data = $this->table_data();
+        // Process search query
+        $search = isset($_REQUEST['s']) ? sanitize_text_field($_REQUEST['s']) : '';
+
+        // Fetch your data based on search query if present
+        $data = $search ? $this->table_data($search) : $this->table_data();
 
         $perPage = 10;
         $currentPage = $this->get_pagenum();
@@ -113,13 +126,19 @@ class yufinder_Data_Fields_Table extends WP_List_Table
      *
      * @return Array
      */
-    private function table_data()
+    private function table_data($search = null)
     {
         global $wpdb, $OUTPUT;
         $table = $wpdb->prefix . 'yufinder_data_fields';
         // Prepare SQL query
         $sql = "SELECT id, instanceid, name, shortname, type, required FROM $table";
         $sql .= " WHERE instanceid = " . $this->instanceid;
+
+        // Add search condition if applicable
+        if ($search) {
+            $sql .= " AND (name LIKE '%$search%' OR shortname LIKE '%$search%' OR type LIKE '%$search%')";
+        }
+
         // Add sorting order
         $orderby = !empty($_GET["orderby"]) ? $_GET["orderby"] : 'name';
         $order = !empty($_GET["order"]) ? $_GET["order"] : 'asc';
