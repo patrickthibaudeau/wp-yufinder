@@ -34,8 +34,8 @@ if ($action == 'edit') {
     // Prepare parameters
     $params = [
         'instanceid' => $_REQUEST['instanceid'],
-        'name' => $_REQUEST['name'],
-        'description' => $_REQUEST['short_description'],
+        'name' => stripslashes_deep($_REQUEST['name']),
+        'description' => stripslashes_deep($_REQUEST['short_description']),
         'filteroptions' => $filteroptions,
         'usermodified' => get_current_user_id(),
         'timemodified' => time()
@@ -73,7 +73,7 @@ if ($action == 'edit') {
             $params = [
                 'platformid' => $id,
                 'datafieldid' => $data_field_id,
-                'value' => str_replace('\\\\', '\\', $value),
+                'value' => stripslashes_deep($value),
                 'usermodified' => get_current_user_id(),
                 'timemodified' => time()
             ];
@@ -110,8 +110,8 @@ if ($action== 'duplicate') {
         $table,
         [
             'instanceid' => $platform['instanceid'],
-            'name' => $platform['name'] . ' (copy)',
-            'description' => $platform['description'],
+            'name' => stripslashes_deep($platform['name']) . ' (copy)',
+            'description' => stripslashes_deep($platform['description']),
             'filteroptions' => $platform['filteroptions'],
             'usermodified' => get_current_user_id(),
             'timemodified' => time(),
@@ -128,7 +128,7 @@ if ($action== 'duplicate') {
             [
                 'platformid' => $new_id,
                 'datafieldid' => $data['datafieldid'],
-                'value' => $data['value'],
+                'value' => stripslashes_deep($data['value']),
                 'usermodified' => get_current_user_id(),
                 'timemodified' => time(),
                 'timecreated' => time()
