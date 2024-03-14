@@ -48,6 +48,7 @@ class yufinder_Activator {
                 id int(11) NOT NULL AUTO_INCREMENT,
                 name varchar(255) NOT NULL,
                 shortname varchar(255) NOT NULL,
+                page_display INT DEFAULT 0,
                 usermodified int(10) NULL,
                 timecreated int(16) DEFAULT 0,
                 timemodified int(16) DEFAULT 0,
