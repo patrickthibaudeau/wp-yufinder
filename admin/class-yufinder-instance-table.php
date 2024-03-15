@@ -28,6 +28,13 @@ class yufinder_Instance_Table extends WP_List_Table
             echo '<h1 class="wp-heading-inline">Instances</h1>';
             echo '<a href="admin.php?page=yufinder-edit-instance&id=0" class="page-title-action">Add New</a>';
 
+            ?>
+            <form method="get">
+                <input type="hidden" name="page" value="<?php echo esc_attr($_REQUEST['page']); ?>" />
+                <?php $this->search_box('Search', 'search_id'); ?>
+            </form>
+            <?php
+
         }
         if ($which == "bottom") {
             //The code that goes after the table is there
@@ -45,6 +52,7 @@ class yufinder_Instance_Table extends WP_List_Table
             'id' => __('ID'),
             'name' => __('Name'),
             'shortname' => __('Short code'),
+            'page_display' => __('Display on Page')
         );
     }
 
@@ -55,7 +63,8 @@ class yufinder_Instance_Table extends WP_List_Table
     public function get_sortable_columns()
     {
         return $sortable = array(
-            'name' => 'name'
+            'name' => 'name',
+            'page_display' => 'page_display'
         );
     }
 
@@ -71,7 +80,11 @@ class yufinder_Instance_Table extends WP_List_Table
         $hidden = $this->get_hidden_columns();
         $sortable = $this->get_sortable_columns();
 
-        $data = $this->table_data();
+        // Process search query
+        $search = isset($_REQUEST['s']) ? sanitize_text_field($_REQUEST['s']) : '';
+
+        // Fetch your data based on search query if present
+        $data = $search ? $this->table_data($search) : $this->table_data();
 
         $perPage = 10;
         $currentPage = $this->get_pagenum();
@@ -103,12 +116,18 @@ class yufinder_Instance_Table extends WP_List_Table
      *
      * @return Array
      */
-    private function table_data()
+    private function table_data($search = null)
     {
         global $wpdb, $OUTPUT;
         $table = $wpdb->prefix . 'yufinder_instance';
         // Prepare SQL query
-        $sql = "SELECT id, name, shortname FROM $table";
+        $sql = "SELECT id, name, shortname, page_display FROM $table";
+
+        // Add search condition if applicable
+        if ($search) {
+            $sql .= " WHERE (name LIKE '%$search%')";
+        }
+
         // Add sorting order
         $orderby = !empty($_GET["orderby"]) ? $_GET["orderby"] : 'name';
         $order = !empty($_GET["order"]) ? $_GET["order"] : 'asc';
@@ -161,6 +180,7 @@ class yufinder_Instance_Table extends WP_List_Table
             ];
             $data[$key]['name'] = $template->render($params);
             $data[$key]['shortname'] = '[yufinder' . ' instanceid=' . $value['id'] . ']';
+            $data[$key]['page_display'] = $value['page_display'] == 1 ? 'Yes' : 'No';
         }
         return $data;
     }
@@ -179,11 +199,13 @@ class yufinder_Instance_Table extends WP_List_Table
             case 'id':
             case 'name':
             case 'shortname':
+            case 'page_display':
                 return $item[$column_name];
 
             default:
                 return print_r($item, true);
         }
     }
+
 
 }

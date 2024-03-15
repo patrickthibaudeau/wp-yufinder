@@ -50,7 +50,7 @@ class yufinder_Instance
                 ARRAY_A
             );
         } else {
-            $this->options = array('id' => 0, 'name' => '', 'shortname' => '');
+            $this->options = array('id' => 0, 'name' => '', 'shortname' => '', 'page_display' => '');
         }
 
         $path = plugin_dir_url(dirname(__FILE__)) . 'admin/edit_instance.php';
@@ -109,6 +109,13 @@ class yufinder_Instance
             'yufinder-edit-instance',
             'setting_section_id'
         );
+        add_settings_field(
+            'page_display',
+            'Display on Page',
+            array($this, 'pagedisplay_callback'),
+            'yufinder-edit-instance',
+            'setting_section_id'
+        );
 
     }
 
@@ -128,6 +135,9 @@ class yufinder_Instance
 
         if (isset($input['shortname']))
             $new_input['shortname'] = sanitize_text_field($input['shortname']);
+
+        if (isset($input['page_display']))
+            $new_input['page_display'] = sanitize_text_field($input['page_display']);
 
         return $new_input;
     }
@@ -173,6 +183,26 @@ class yufinder_Instance
         );
     }
 
+    public function pagedisplay_callback()
+    {
+        $yes_selected = false;
+        $no_selected = false;
+        if (isset($this->options['page_display'])) {
+            if (esc_attr($this->options['page_display']) == 1) {
+                $yes_selected = 'selected';
+            } else {
+                $no_selected = 'selected';
+            }
+        }
+
+        print(
+            '<select id="page_display" name="page_display" required />'
+            . '<option value="0" ' . $no_selected . '>No</option>'
+            . '<option value="1" ' . $yes_selected . '>Yes</option>'
+            . '</select>'
+        );
+    }
+
     /**
      * @param $instanceid
      * @return array|object|null
@@ -184,6 +214,11 @@ class yufinder_Instance
 //        $platform
         $sql = "SELECT * FROM $table WHERE id = $this->id";
         $instance = $wpdb->get_row($sql, ARRAY_A);
+        if ($instance['page_display'] == 1) {
+            $instance['display_instance_name'] = true;
+        } else {
+            $instance['display_instance_name'] = false;
+        }
         $instance['filters'] = $this->get_filters($this->id);
         $instance['platforms'] = $this->get_platforms($this->id);
         $instance['data_fields'] = $this->get_data_fields($this->id);
