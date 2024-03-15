@@ -49,6 +49,8 @@
 				$('.question-textarea').each(function(){
 					if($(this).val() == ""){
 						valid = false;
+						alert("Please fill in all the fields");
+						return false;
 					}
 				});
 				//validate select fields
@@ -71,7 +73,7 @@
 				});
 
 				if(!valid) {
-					alert("Please fill in all the fields");
+
 					e.preventDefault();
 				}
 			});
