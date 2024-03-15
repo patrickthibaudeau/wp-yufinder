@@ -140,10 +140,13 @@ class yufinder_Platform
      */
     public function page_init()
     {
+        add_settings_error('test', 'id', __('you wucked up', 'wordpress'), 'error');
+
+
         register_setting(
             '_group', // Option group
             'yufinder_edit_platform', // Option name
-            array($this, 'sanitize') // Sanitize
+            array($this, 'sanitize_callback') // Sanitize
         );
 
         add_settings_section(
@@ -182,7 +185,7 @@ class yufinder_Platform
             'Short Description',
             array($this, 'short_description_callback'),
             'yufinder-edit-platform',
-            'setting_section_id',
+            'setting_section_id'
 
         );
 
@@ -208,8 +211,11 @@ class yufinder_Platform
      *
      * @param array $input Contains all settings fields as array keys
      */
-    public function sanitize($input)
+    function sanitize_callback($input)
     {
+//        add_settings_error("test123", "id", __("you might have wucked up","wordpress"), "error");
+//        settings_errors('test');
+//        settings_errors("test123");
         $new_input = array();
         if (isset($input['id'])) {
             $new_input['id'] = absint($input['id']);

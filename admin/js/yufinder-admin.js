@@ -39,6 +39,42 @@
 			if (remain <= 0 && e.which !== 0 && e.charCode !== 0) {
 				$('#short_description').val((tval).substring(0, tlength - 1))
 			}
-		})
+		});
+		if(window.location.href.indexOf("yufinder-edit-platform") > -1){
+			// Add class to the post type
+
+			$('form').on('submit', function(e){
+				let valid=true
+				//validate fields
+				$('.question-textarea').each(function(){
+					if($(this).val() == ""){
+						valid = false;
+					}
+				});
+				//validate select fields
+
+
+				$('optgroup').each(function(){
+					//cover each option in option group
+					let validgroup=false;
+					//check if any of the options are selected
+					$(this).children("option").each(function(){
+						if($(this).is(':selected')) {
+							validgroup = true;
+							return false;
+						}
+					});
+					if(!validgroup) {
+						alert("Please select an option for each question")
+						valid = false;
+					}
+				});
+
+				if(!valid) {
+					alert("Please fill in all the fields");
+					e.preventDefault();
+				}
+			});
+		}
 	});
 })( jQuery );
