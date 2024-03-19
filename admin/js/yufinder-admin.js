@@ -39,6 +39,29 @@
 			if (remain <= 0 && e.which !== 0 && e.charCode !== 0) {
 				$('#short_description').val((tval).substring(0, tlength - 1))
 			}
-		})
+		});
+
+		$('.row-action[href*="action=delete"]').on('click', function(e) {
+			e.preventDefault();
+			var deleteURL = $(this).attr('href');
+			console.log(deleteURL);
+
+			// Open WordPress modal dialog
+			$('#delete-modal').dialog({
+				modal: true,
+				buttons: {
+					Confirm: function() {
+						// If confirmed, proceed with deletion
+						window.location.href = deleteURL;
+						$(this).dialog('close');
+					},
+					Cancel: function() {
+						// If canceled, close the modal
+						$(this).dialog('close');
+					}
+				}
+			});
+		});
+
 	});
 })( jQuery );

@@ -185,6 +185,17 @@ class yufinder_Instance_Table extends WP_List_Table
         return $data;
     }
 
+    public function output_modal_html() {
+        // Output the modal HTML markup
+        ?>
+        <!-- Modal HTML markup -->
+        <div id="delete-modal" title="Confirm Delete" style="display: none;">
+            <p>Are you sure you want to delete this item?</p>
+        </div>
+        <?php
+    }
+
+
     /**
      * Define what data to show on each column of the table
      *

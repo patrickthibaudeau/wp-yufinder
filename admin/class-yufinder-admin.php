@@ -87,6 +87,8 @@ class yufinder_Admin {
             $this->version,
             'all'
         );
+        // Enqueue WordPress modal styles
+        wp_enqueue_style('wp-modal-css', 'https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css');
 	}
 
 	/**
@@ -115,6 +117,9 @@ class yufinder_Admin {
             $this->version,
             false
         );
+        // Enqueue WordPress modal scripts
+        wp_enqueue_script('wp-modal', 'https://code.jquery.com/ui/1.12.1/jquery-ui.min.js', array('jquery'), '1.12.1', true);
+
 	}
 
     /**
@@ -131,6 +136,7 @@ class yufinder_Admin {
         $yufinder_instance_table = new yufinder_Instance_Table();
         $yufinder_instance_table->prepare_items();
         $yufinder_instance_table->display();
+        $yufinder_instance_table->output_modal_html();
     }
     // Add options page
     public function options_page()
@@ -160,6 +166,7 @@ class yufinder_Admin {
         $yufinder_data_fields_table = new yufinder_Data_Fields_Table($instanceid);
         $yufinder_data_fields_table->prepare_items();
         $yufinder_data_fields_table->display();
+        $yufinder_data_fields_table->output_modal_html();
     }
 
     // Load submenu page
@@ -190,6 +197,7 @@ class yufinder_Admin {
         $yufinder_data_fields_table = new yufinder_Filters_Table($instanceid);
         $yufinder_data_fields_table->prepare_items();
         $yufinder_data_fields_table->display();
+        $yufinder_data_fields_table->output_modal_html();
     }
 
     // Load submenu page
@@ -220,6 +228,7 @@ class yufinder_Admin {
         $yufinder_data_fields_table = new yufinder_Platforms_Table($instanceid);
         $yufinder_data_fields_table->prepare_items();
         $yufinder_data_fields_table->display();
+        $yufinder_data_fields_table->output_modal_html();
     }
 
     // Load submenu page
