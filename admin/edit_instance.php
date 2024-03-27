@@ -37,11 +37,12 @@ if ($action == 'edit') {
         );
     } else {
         $params['timecreated'] = time();
-        $newid = $wpdb->insert(
+          $wpdb->insert(
             $table,
             $params,
             array('%s', '%s', '%d', '%d', '%d', '%d')
         );
+        $newid = $wpdb->insert_id;
     }
 } else {
     $wpdb->delete($table, array('id' => $id));

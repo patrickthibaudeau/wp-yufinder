@@ -52,11 +52,13 @@ if ($action == 'edit') {
         );
     } else {
         $params['timecreated'] = time();
-        $filterid = $wpdb->insert(
+        $wpdb->insert(
             $table,
             $params,
             array('%d', '%s', '%s', '%d', '%d', '%d', '%d')
         );
+
+        $filterid = $wpdb->insert_id;
     }
 // Add filter options
     $wpdb->delete($wpdb->prefix . 'yufinder_filter_options', array('filterid' => $id));
