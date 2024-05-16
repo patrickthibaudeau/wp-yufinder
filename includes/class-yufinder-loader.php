@@ -125,6 +125,7 @@ class yufinder_Loader
         require_once plugin_dir_path(dirname(__FILE__)) . 'includes/class-yufinder-data-field.php';
         require_once plugin_dir_path(dirname(__FILE__)) . 'includes/class-yufinder-filter.php';
         require_once plugin_dir_path(dirname(__FILE__)) . 'includes/class-yufinder-platform.php';
+        require_once plugin_dir_path(dirname(__FILE__)) . 'includes/class-yufinder-import.php';
         foreach ($this->filters as $hook) {
             add_filter($hook['hook'], array($hook['component'], $hook['callback']), $hook['priority'], $hook['accepted_args']);
         }
@@ -144,6 +145,8 @@ class yufinder_Loader
         add_action('admin_menu', array($YUFINDERADMIN, 'filters_page'), 'filters_page');
         // Platforms page
         add_action('admin_menu', array($YUFINDERADMIN, 'platforms_page'), 'platforms_page');
+        //Import page
+        add_action('admin_menu', array($YUFINDERADMIN, 'import_page'), 'import_page');
 
 
         //load public enqueue scripts and styles
@@ -155,8 +158,9 @@ class yufinder_Loader
         if( is_admin() ) {
             $yufinder_instance = new yufinder_Instance();
             $yufinder_data_fields = new yufinder_Data_Field();
-            $yufinder_data_fields = new yufinder_Filter();
-            $yufinder_data_fields = new yufinder_Platform();
+            $yufinder_Filter = new yufinder_Filter();
+            $yufinder_Platform = new yufinder_Platform();
+            $yufinder_Import = new yufinder_Import();
         }
 
     }

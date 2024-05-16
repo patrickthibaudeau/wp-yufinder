@@ -170,6 +170,20 @@ class yufinder_Instance_Table extends WP_List_Table
                         'separator' => ' | '
                     ],
                     [
+                        'action' => 'export',
+                        'url' => plugin_dir_url(dirname(__FILE__)) . 'admin/export_instance.php?instanceid=' . $value['id'],
+                        'label' => 'Export',
+                        'title' => 'Export instance',
+                        'separator' => ' | '
+                    ],
+                    [
+                        'action' => 'view',
+                        'url' => admin_url('admin.php?page=yufinder-import-instance&instanceid=' . $value['id']),
+                        'label' => 'Import',
+                        'title' => 'Import Instance',
+                        'separator' => ' | '
+                    ],
+                    [
                         'action' => 'delete',
                         'url' =>  plugin_dir_url(dirname(__FILE__)) . 'admin/edit_instance.php?action=delete&id=' . $value['id'],
                         'label' => 'Delete',

@@ -236,4 +236,27 @@ class yufinder_Admin {
         );
     }
 
+    public function import_page_html() {
+        global $wpdb;
+        $instanceid = $_REQUEST['instanceid'];
+        // Get record form db
+        $table = $wpdb->prefix . 'yufinder_instance';
+        $sql = "SELECT * FROM $table WHERE id = $instanceid";
+        $data = $wpdb->get_row($sql, ARRAY_A);
+        echo '<div class="wrap"><h2>Import for ' . $data['name'] . '</h2></div>';
+    }
+
+    public function import_page()
+    {
+        // Get instance id
+        add_submenu_page(
+            null, // do not display as submenu option
+            'Import',
+            'Import',
+            'manage_options',
+            'yufinder-import-instance',
+            [$this, 'import_page_html']
+        );
+    }
+
 }

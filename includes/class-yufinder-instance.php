@@ -207,22 +207,26 @@ class yufinder_Instance
      * @param $instanceid
      * @return array|object|null
      */
-    public function get_data_tree()
+    public function get_data_tree($instanceid = 0)
     {
         global $wpdb;
         $table = $wpdb->prefix . 'yufinder_instance';
+        // Set instance id
+        if ($instanceid == 0) {
+            $instanceid = $this->id;
+        }
 //        $platform
-        $sql = "SELECT * FROM $table WHERE id = $this->id";
+        $sql = "SELECT * FROM $table WHERE id = $instanceid";
         $instance = $wpdb->get_row($sql, ARRAY_A);
         if ($instance['page_display'] == 1) {
             $instance['display_instance_name'] = true;
         } else {
             $instance['display_instance_name'] = false;
         }
-        $instance['filters'] = $this->get_filters($this->id);
-        $instance['platforms'] = $this->get_platforms($this->id);
-        $instance['data_fields'] = $this->get_data_fields($this->id);
-        $instance['platform_table_filter_buttons'] = $this->get_platform_filter_buttons($this->id);
+        $instance['filters'] = $this->get_filters($instanceid);
+        $instance['platforms'] = $this->get_platforms($instanceid);
+        $instance['data_fields'] = $this->get_data_fields($instanceid);
+        $instance['platform_table_filter_buttons'] = $this->get_platform_filter_buttons($instanceid);
         // Set platform table data
         $instance['platform_table_data'] = $instance['platforms']['table_data'];
         // Remove table data from platforms
